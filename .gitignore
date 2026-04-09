@@ -1,0 +1,47 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables (sensitive)
+.env
+.env.local
+.env.*.local
+
+# Flutter/Dart build artifacts
+ai_resume_analyzer/.dart_tool/
+ai_resume_analyzer/.flutter-plugins
+ai_resume_analyzer/.flutter-plugins-dependencies
+ai_resume_analyzer/build/
+ai_resume_analyzer/.packages
+
+# Android
+ai_resume_analyzer/android/.gradle/
+ai_resume_analyzer/android/local.properties
+ai_resume_analyzer/android/key.properties
+ai_resume_analyzer/android/app/google-services.json
+
+# iOS
+ai_resume_analyzer/ios/Flutter/flutter_export_environment.sh
+ai_resume_analyzer/ios/.symlinks/
+ai_resume_analyzer/ios/Pods/
+
+# macOS
+ai_resume_analyzer/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Windows
+ai_resume_analyzer/windows/flutter/generated_plugin_registrant.cc
+ai_resume_analyzer/windows/flutter/generated_plugin_registrant.h
+ai_resume_analyzer/windows/flutter/generated_plugins.cmake
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
