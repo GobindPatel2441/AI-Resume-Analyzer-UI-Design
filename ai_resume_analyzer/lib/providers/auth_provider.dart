@@ -7,6 +7,8 @@ class AuthProvider with ChangeNotifier {
   String? _userName;
   String? _userEmail;
   String? _userId;
+  String? _userPhone;
+  String? _userLocation;
   String? _errorMessage;
 
   bool get isLoggedIn => _isLoggedIn;
@@ -14,6 +16,8 @@ class AuthProvider with ChangeNotifier {
   String? get userName => _userName;
   String? get userEmail => _userEmail;
   String? get userId => _userId;
+  String? get userPhone => _userPhone;
+  String? get userLocation => _userLocation;
   String? get errorMessage => _errorMessage;
 
   /// Called on app startup to restore session
@@ -28,6 +32,8 @@ class AuthProvider with ChangeNotifier {
       _userName = user['name'];
       _userEmail = user['email'];
       _userId = user['id'];
+      _userPhone = user['phone'];
+      _userLocation = user['location'];
     } else {
       _isLoggedIn = false;
     }
@@ -50,6 +56,8 @@ class AuthProvider with ChangeNotifier {
       _userName = user['name']?.toString();
       _userEmail = user['email']?.toString();
       _userId = user['id']?.toString();
+      _userPhone = user['phone']?.toString();
+      _userLocation = user['location']?.toString();
       notifyListeners();
       return true;
     } else {
@@ -74,6 +82,8 @@ class AuthProvider with ChangeNotifier {
       _userName = user['name']?.toString();
       _userEmail = user['email']?.toString();
       _userId = user['id']?.toString();
+      _userPhone = user['phone']?.toString();
+      _userLocation = user['location']?.toString();
       notifyListeners();
       return true;
     } else {
@@ -89,11 +99,56 @@ class AuthProvider with ChangeNotifier {
     _userName = null;
     _userEmail = null;
     _userId = null;
+    _userPhone = null;
+    _userLocation = null;
     notifyListeners();
   }
 
   void clearError() {
     _errorMessage = null;
     notifyListeners();
+  }
+
+  Future<bool> updateProfile(String name, String email, String phone, String location) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    final result = await AuthService.updateProfile(
+        name: name, email: email, phone: phone, location: location);
+
+    _isLoading = false;
+    if (result['success'] == true) {
+      final user = result['user'] as Map<String, dynamic>;
+      _userName = user['name']?.toString();
+      _userEmail = user['email']?.toString();
+      _userPhone = user['phone']?.toString();
+      _userLocation = user['location']?.toString();
+      notifyListeners();
+      return true;
+    } else {
+      _errorMessage = result['error']?.toString();
+      notifyListeners();
+      return false;
+    }
+  }
+
+  Future<bool> changePassword(String currentPassword, String newPassword) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    final result = await AuthService.changePassword(
+        currentPassword: currentPassword, newPassword: newPassword);
+
+    _isLoading = false;
+    if (result['success'] == true) {
+      notifyListeners();
+      return true;
+    } else {
+      _errorMessage = result['error']?.toString();
+      notifyListeners();
+      return false;
+    }
   }
 }

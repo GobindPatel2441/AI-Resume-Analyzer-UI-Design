@@ -9,12 +9,15 @@ class AppConstants {
   static const String analyzeUrl = '$baseUrl/analyze-resume';
   static const String historyUrl = '$baseUrl/analyze-resume/history';
   static const String profileUrl = '$baseUrl/analyze-resume/profile';
+  static const String passwordUrl = '$baseUrl/analyze-resume/password';
 
   // Local storage keys
   static const String tokenKey = 'auth_token';
   static const String userNameKey = 'user_name';
   static const String userEmailKey = 'user_email';
   static const String userIdKey = 'user_id';
+  static const String userPhoneKey = 'user_phone';
+  static const String userLocationKey = 'user_location';
 
   // Popular job roles for quick selection
   static const List<String> popularJobRoles = [

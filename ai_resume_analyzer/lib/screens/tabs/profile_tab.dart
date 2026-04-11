@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../core/app_theme.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/resume_provider.dart';
+import '../../widgets/edit_profile_dialog.dart';
+import '../../widgets/change_password_dialog.dart';
 import '../login_screen.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -115,18 +117,72 @@ class ProfileTab extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Options
+            // Account Section
+            Text(
+              'Account',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimaryColor,
+                  ),
+            ),
+            const SizedBox(height: 12),
             Card(
               child: Column(
                 children: [
                   ListTile(
-                    leading: const Icon(Icons.person_outline,
-                        color: AppTheme.primaryColor),
-                    title: const Text('Account Info'),
-                    subtitle: Text(email),
-                    trailing: const Icon(Icons.chevron_right),
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.person_outline, color: AppTheme.textSecondaryColor),
+                    ),
+                    title: const Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.w500)),
+                    trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => const EditProfileDialog(),
+                      );
+                    },
                   ),
                   const Divider(height: 1),
+                  ListTile(
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.lock_outline, color: AppTheme.textSecondaryColor),
+                    ),
+                    title: const Text('Change Password', style: TextStyle(fontWeight: FontWeight.w500)),
+                    trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => const ChangePasswordDialog(),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // General Section
+            Text(
+              'General',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimaryColor,
+                  ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              child: Column(
+                children: [
                   ListTile(
                     leading: const Icon(Icons.bar_chart_rounded,
                         color: AppTheme.primaryColor),

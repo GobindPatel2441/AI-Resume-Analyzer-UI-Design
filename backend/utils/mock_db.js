@@ -52,6 +52,26 @@ const MockDb = {
       saveDb(db);
     }
   },
+  updateUserProfile: (id, updates) => {
+    const db = loadDb();
+    const userIndex = db.users.findIndex(u => u._id === id);
+    if (userIndex !== -1) {
+      db.users[userIndex] = { ...db.users[userIndex], ...updates };
+      saveDb(db);
+      return db.users[userIndex];
+    }
+    return null;
+  },
+  updateUserPassword: (id, passwordHash) => {
+    const db = loadDb();
+    const user = db.users.find(u => u._id === id);
+    if (user) {
+      user.passwordHash = passwordHash;
+      saveDb(db);
+      return true;
+    }
+    return false;
+  },
 
   // History operations
   findHistoryByUserId: (userId) => {

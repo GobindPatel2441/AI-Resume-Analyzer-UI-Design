@@ -56,6 +56,78 @@ class AuthService {
     }
   }
 
+  // ── Profile & Password ──────────────────────────────────
+  static Future<Map<String, dynamic>> updateProfile({
+    required String name,
+    required String email,
+    required String phone,
+    required String location,
+  }) async {
+    try {
+      final token = await getToken();
+      if (token == null) return {'success': false, 'error': 'Not authenticated'};
+
+      final response = await http.put(
+        Uri.parse(AppConstants.profileUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'name': name,
+          'email': email,
+          'phone': phone,
+          'location': location,
+        }),
+      ).timeout(const Duration(seconds: 15));
+
+      final body = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(AppConstants.userNameKey, name);
+        await prefs.setString(AppConstants.userEmailKey, email);
+        return {'success': true, 'user': body['user']};
+      } else {
+        return {'success': false, 'error': body['error'] ?? 'Profile update failed'};
+      }
+    } catch (e) {
+      debugPrint('AuthService.updateProfile error: $e');
+      return {'success': false, 'error': 'Update failed. Check connection.'};
+    }
+  }
+
+  static Future<Map<String, dynamic>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final token = await getToken();
+      if (token == null) return {'success': false, 'error': 'Not authenticated'};
+
+      final response = await http.put(
+        Uri.parse(AppConstants.passwordUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'currentPassword': currentPassword,
+          'newPassword': newPassword,
+        }),
+      ).timeout(const Duration(seconds: 15));
+
+      if (response.statusCode == 200) {
+        return {'success': true};
+      } else {
+        final body = jsonDecode(response.body);
+        return {'success': false, 'error': body['error'] ?? 'Password update failed'};
+      }
+    } catch (e) {
+      debugPrint('AuthService.changePassword error: $e');
+      return {'success': false, 'error': 'Failed to change password. Check connection.'};
+    }
+  }
+
   // ── Logout ──────────────────────────────────────────────
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
@@ -82,6 +154,8 @@ class AuthService {
       'id': prefs.getString(AppConstants.userIdKey),
       'name': prefs.getString(AppConstants.userNameKey),
       'email': prefs.getString(AppConstants.userEmailKey),
+      'phone': prefs.getString(AppConstants.userPhoneKey),
+      'location': prefs.getString(AppConstants.userLocationKey),
     };
   }
 
@@ -93,5 +167,7 @@ class AuthService {
     await prefs.setString(AppConstants.userIdKey, user['id']?.toString() ?? '');
     await prefs.setString(AppConstants.userNameKey, user['name'] ?? '');
     await prefs.setString(AppConstants.userEmailKey, user['email'] ?? '');
+    await prefs.setString(AppConstants.userPhoneKey, user['phone'] ?? '');
+    await prefs.setString(AppConstants.userLocationKey, user['location'] ?? '');
   }
 }

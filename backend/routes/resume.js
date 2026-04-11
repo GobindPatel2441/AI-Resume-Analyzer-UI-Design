@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const authMiddleware = require('../middleware/auth');
 const ResumeHistory = require('../models/ResumeHistory');
@@ -127,6 +128,80 @@ router.get('/profile', authMiddleware, async (req, res) => {
     res.json({ ...user, totalAnalyses, avgScore });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch profile.' });
+  }
+});
+
+// PUT /analyze-resume/profile (protected)
+router.put('/profile', authMiddleware, async (req, res) => {
+  const { name, email, phone, location } = req.body;
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Name and email are required.' });
+  }
+
+  try {
+    const isDbConnected = global.isDbConnected;
+    // Check if new email is already taken by a different user
+    if (isDbConnected) {
+      const existingUser = await User.findOne({ email, _id: { $ne: req.user.id } });
+      if (existingUser) {
+        return res.status(409).json({ error: 'An account with this email already exists.' });
+      }
+      await User.findByIdAndUpdate(req.user.id, { name, email, phone, location });
+    } else {
+      const existingUser = MockDb.findUserByEmail(email);
+      if (existingUser && existingUser._id !== req.user.id) {
+        return res.status(409).json({ error: 'An account with this email already exists.' });
+      }
+      MockDb.updateUserProfile(req.user.id, { name, email, phone, location });
+    }
+
+    res.json({ message: 'Profile updated successfully', user: { name, email, phone, location } });
+  } catch (err) {
+    console.error('Update profile error:', err.message);
+    res.status(500).json({ error: 'Failed to update profile.' });
+  }
+});
+
+// PUT /analyze-resume/password (protected)
+router.put('/password', authMiddleware, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword || newPassword.length < 6) {
+    return res.status(400).json({ error: 'Valid current password and new password (min 6 chars) are required.' });
+  }
+
+  try {
+    const isDbConnected = global.isDbConnected;
+    let user;
+
+    if (isDbConnected) {
+      user = await User.findById(req.user.id);
+    } else {
+      user = MockDb.findUserById(req.user.id);
+    }
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Incorrect current password.' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(newPassword, salt);
+
+    if (isDbConnected) {
+      user.passwordHash = passwordHash;
+      await user.save();
+    } else {
+      MockDb.updateUserPassword(req.user.id, passwordHash);
+    }
+
+    res.json({ message: 'Password changed successfully' });
+  } catch (err) {
+    console.error('Change password error:', err.message);
+    res.status(500).json({ error: 'Failed to change password.' });
   }
 });
 

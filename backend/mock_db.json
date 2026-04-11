@@ -57,7 +57,9 @@
       "passwordHash": "$2b$10$VhaeMoY.qMFGL3W42/vRSeKOVl951mA8Fr7cc3Qmcbu0us9TkLZTm",
       "_id": "1775911394916",
       "createdAt": "2026-04-11T12:43:14.917Z",
-      "totalAnalyses": 3
+      "totalAnalyses": 3,
+      "phone": "",
+      "location": ""
     }
   ],
   "histories": [
