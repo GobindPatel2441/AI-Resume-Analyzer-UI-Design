@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import '../models/resume_analysis.dart';
 import '../services/pdf_service.dart';
-import '../services/openai_service.dart';
+import '../services/analysis_service.dart';
 import '../services/history_service.dart';
 
 class ResumeProvider with ChangeNotifier {
@@ -91,7 +91,7 @@ class ResumeProvider with ChangeNotifier {
       notifyListeners();
 
       // 3. Analyze via backend
-      _currentAnalysis = await OpenAiService.analyzeResume(
+      _currentAnalysis = await AnalysisService.analyzeResume(
         _extractedText!,
         _targetRole,
         _selectedFile!.name,

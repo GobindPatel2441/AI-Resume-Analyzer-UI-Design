@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../core/app_theme.dart';
 import '../../providers/resume_provider.dart';
 import '../../widgets/resume_tile.dart';
+import '../../widgets/shimmer_loading.dart';
 import '../results_screen.dart';
 
 class HistoryTab extends StatelessWidget {
@@ -41,7 +42,13 @@ class HistoryTab extends StatelessWidget {
             const SizedBox(height: 24),
             Expanded(
               child: provider.isLoadingHistory
-                  ? const Center(child: CircularProgressIndicator())
+                  ? ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.only(bottom: 12),
+                        child: ShimmerLoading.rectangular(height: 80),
+                      ),
+                    )
                   : history.isEmpty
                       ? Center(
                           child: Column(

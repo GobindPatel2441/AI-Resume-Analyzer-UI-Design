@@ -1,26 +1,25 @@
 const axios = require('axios');
 
-async function testBackend() {
-  const url = 'http://localhost:5000/analyze-resume';
-  const payload = {
-    resumeText: "John Doe\nSoftware Engineer\nExperience: 5 years in Node.js and Flutter.",
-    jobRole: "Senior Developer"
-  };
-
-  console.log('Sending request to backend...');
+const test = async () => {
   try {
-    const response = await axios.post(url, payload);
-    console.log('Success! Backend returned:');
-    console.log(JSON.stringify(response.data, null, 2));
-  } catch (error) {
-    console.error('Error calling backend:');
-    if (error.response) {
-      console.error('Status:', error.response.status);
-      console.error('Data:', JSON.stringify(error.response.data, null, 2));
-    } else {
-      console.error('Message:', error.message);
-    }
-  }
-}
+    console.log('Testing Health Check...');
+    const health = await axios.get('http://localhost:5000/health');
+    console.log('Health:', health.data);
 
-testBackend();
+    console.log('Testing Signup...');
+    try {
+      const signup = await axios.post('http://localhost:5000/auth/signup', {
+        name: 'Tester',
+        email: `test_${Date.now()}@test.com`,
+        password: 'password123'
+      });
+      console.log('Signup Success:', signup.data);
+    } catch (e) {
+      console.error('Signup Failed:', e.response?.data || e.message);
+    }
+  } catch (e) {
+    console.error('Initial Connection Failed:', e.message);
+  }
+};
+
+test();

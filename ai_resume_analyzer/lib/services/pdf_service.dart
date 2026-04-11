@@ -6,11 +6,9 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 class PdfService {
   static Future<PlatformFile?> pickPdf() async {
     try {
-      debugPrint("PdfService: Initializing file picking...");
+      debugPrint("PdfService: [STEP 1] Initializing file picking...");
       
-      // Clear temporary files to avoid storage-related stalls on Android
-      await FilePicker.platform.clearTemporaryFiles();
-      
+      debugPrint("PdfService: [STEP 2] Calling pickFiles...");
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf'],
@@ -18,6 +16,8 @@ class PdfService {
         withData: true, // Crucial for Web
         allowCompression: false, // Essential for some Android devices to prevent hangs
       );
+
+      debugPrint("PdfService: [STEP 3] pickFiles returned. Result is null? ${result == null}");
 
       if (result != null && result.files.isNotEmpty) {
         final file = result.files.first;
@@ -49,12 +49,6 @@ class PdfService {
     try {
       debugPrint("PdfService: Initializing document extraction...");
       
-      // MOCK CHECK: Handle the specific demo bytes I just created
-      if (bytes.length < 50 && bytes.isNotEmpty && bytes[0] == 0x25) {
-        debugPrint("PdfService: DEMO BYTES DETECTED - Using generic resume text.");
-        return "DEMO RESUME: Senior Software Engineer with 10 years of experience in AI, Node.js, and Docker.";
-      }
-
       final PdfDocument document = PdfDocument(inputBytes: bytes);
       final PdfTextExtractor extractor = PdfTextExtractor(document);
       
@@ -73,10 +67,6 @@ class PdfService {
       
       if (text.trim().isEmpty) {
         debugPrint("PdfService: WARNING - No text extracted from PDF.");
-        if (kIsWeb) {
-          debugPrint("PdfService: WEB FALLBACK - Providing generic resume text for testing.");
-          return "GENERIC RESUME TEXT FOR WEB TESTING. EXPERIENCE: FLUTTER DEVELOPER 3 YEARS, OPENAI API, DART.";
-        }
       }
       
       return text;

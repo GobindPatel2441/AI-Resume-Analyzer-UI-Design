@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
+const MockDb = require('../utils/mock_db');
 
 // POST /auth/signup
 router.post(
@@ -24,16 +25,30 @@ router.post(
     const { name, email, password } = req.body;
 
     try {
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(409).json({ error: 'An account with this email already exists.' });
+      const isDbConnected = global.isDbConnected;
+      let user;
+
+      if (isDbConnected) {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+          return res.status(409).json({ error: 'An account with this email already exists.' });
+        }
+      } else {
+        const existingUser = MockDb.findUserByEmail(email);
+        if (existingUser) {
+          return res.status(409).json({ error: 'An account with this email already exists.' });
+        }
       }
 
       const salt = await bcrypt.genSalt(10);
       const passwordHash = await bcrypt.hash(password, salt);
 
-      const user = new User({ name, email, passwordHash });
-      await user.save();
+      if (isDbConnected) {
+        user = new User({ name, email, passwordHash });
+        await user.save();
+      } else {
+        user = MockDb.createUser({ name, email, passwordHash });
+      }
 
       const token = jwt.sign(
         { id: user._id, email: user.email, name: user.name },
@@ -46,8 +61,8 @@ router.post(
         user: { id: user._id, name: user.name, email: user.email },
       });
     } catch (err) {
-      console.error('Signup error:', err.message);
-      res.status(500).json({ error: 'Server error during signup.' });
+      console.error('Signup error:', err);
+      res.status(500).json({ error: 'Server error during signup.', details: err.message });
     }
   }
 );
@@ -68,7 +83,15 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      const user = await User.findOne({ email });
+      const isDbConnected = global.isDbConnected;
+      let user;
+
+      if (isDbConnected) {
+        user = await User.findOne({ email });
+      } else {
+        user = MockDb.findUserByEmail(email);
+      }
+
       if (!user) {
         return res.status(401).json({ error: 'Invalid email or password.' });
       }
