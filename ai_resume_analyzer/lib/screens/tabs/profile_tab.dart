@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../core/app_theme.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/resume_provider.dart';
+import '../../providers/theme_provider.dart';
 import '../../widgets/edit_profile_dialog.dart';
 import '../../widgets/change_password_dialog.dart';
 import '../login_screen.dart';
@@ -14,6 +15,7 @@ class ProfileTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
     final resume = Provider.of<ResumeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final name = auth.userName ?? 'User';
     final email = auth.userEmail ?? '';
 
@@ -27,7 +29,6 @@ class ProfileTab extends StatelessWidget {
               'Profile',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimaryColor,
                   ),
             ),
             const SizedBox(height: 32),
@@ -133,10 +134,10 @@ class ProfileTab extends StatelessWidget {
                     leading: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : Colors.grey.shade100,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.person_outline, color: AppTheme.textSecondaryColor),
+                      child: const Icon(Icons.person_outline),
                     ),
                     title: const Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.w500)),
                     trailing: const Icon(Icons.chevron_right, color: Colors.grey),
@@ -152,10 +153,10 @@ class ProfileTab extends StatelessWidget {
                     leading: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : Colors.grey.shade100,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.lock_outline, color: AppTheme.textSecondaryColor),
+                      child: const Icon(Icons.lock_outline),
                     ),
                     title: const Text('Change Password', style: TextStyle(fontWeight: FontWeight.w500)),
                     trailing: const Icon(Icons.chevron_right, color: Colors.grey),
@@ -167,6 +168,35 @@ class ProfileTab extends StatelessWidget {
                     },
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Preferences Section
+            Text(
+              'Preferences',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              child: SwitchListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                secondary: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : Colors.grey.shade100,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.dark_mode_outlined),
+                ),
+                title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w500)),
+                value: themeProvider.themeMode == ThemeMode.dark,
+                onChanged: (bool value) {
+                  themeProvider.toggleTheme(value);
+                },
+                activeColor: AppTheme.primaryColor,
               ),
             ),
             const SizedBox(height: 24),

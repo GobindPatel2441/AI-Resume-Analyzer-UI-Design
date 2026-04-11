@@ -42,7 +42,7 @@ class ScoreIndicator extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: animValue,
                     strokeWidth: 14,
-                    backgroundColor: Colors.grey.shade200,
+                    backgroundColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                     color: scoreColor,
                     strokeCap: StrokeCap.round,
                   ),
@@ -55,14 +55,14 @@ class ScoreIndicator extends StatelessWidget {
                       style: TextStyle(
                         fontSize: size * 0.27,
                         fontWeight: FontWeight.bold,
-                        color: AppTheme.textPrimaryColor,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     Text(
                       'ATS Score',
                       style: TextStyle(
                         fontSize: size * 0.09,
-                        color: AppTheme.textSecondaryColor,
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                         fontWeight: FontWeight.w500,
                       ),
                     ),

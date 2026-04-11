@@ -75,7 +75,6 @@ class _UploadTabState extends State<UploadTab> {
               'Upload Resume',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimaryColor,
                   ),
             ),
             const SizedBox(height: 32),
@@ -86,7 +85,7 @@ class _UploadTabState extends State<UploadTab> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).cardTheme.color,
                     border: Border.all(
                       color: selectedFile != null ? AppTheme.primaryColor : AppTheme.primaryColor.withValues(alpha: 0.3),
                       width: 2,

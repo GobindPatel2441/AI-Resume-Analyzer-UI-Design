@@ -88,12 +88,11 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: AppTheme.textPrimaryColor,
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppTheme.textSecondaryColor),
+                      icon: const Icon(Icons.close),
                       onPressed: () => Navigator.pop(context),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
@@ -142,9 +141,9 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                   },
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Password must be at least 8 characters long',
-                  style: TextStyle(color: Colors.grey, fontSize: 13),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5), fontSize: 13),
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
@@ -189,8 +188,8 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         text,
-        style: const TextStyle(
-          color: AppTheme.textSecondaryColor,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
           fontWeight: FontWeight.w500,
           fontSize: 14,
         ),
@@ -200,23 +199,9 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
 
   InputDecoration _inputDecoration({required bool isObscured, required VoidCallback onToggle}) {
     return InputDecoration(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Color(0xFF8B80F9)),
-      ),
       suffixIcon: IconButton(
         icon: Icon(
           isObscured ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-          color: Colors.grey,
         ),
         onPressed: onToggle,
       ),

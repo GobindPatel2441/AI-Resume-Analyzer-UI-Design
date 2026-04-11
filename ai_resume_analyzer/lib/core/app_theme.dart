@@ -90,4 +90,92 @@ class AppTheme {
       ),
     );
   }
+
+  static ThemeData get darkTheme {
+    const Color darkBackgroundColor = Color(0xFF111827); // Very dark gray
+    const Color darkSurfaceColor = Color(0xFF1F2937); // Slightly lighter for cards
+    const Color darkTextPrimary = Colors.white;
+    const Color darkTextSecondary = Color(0xFF9CA3AF);
+    
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        brightness: Brightness.dark,
+        primary: primaryColor,
+        secondary: secondaryColor,
+        surface: darkSurfaceColor,
+        error: errorColor,
+      ),
+      scaffoldBackgroundColor: darkBackgroundColor,
+      textTheme: GoogleFonts.outfitTextTheme().copyWith(
+        displayLarge: const TextStyle(fontWeight: FontWeight.bold, color: darkTextPrimary, fontSize: 32),
+        headlineMedium: const TextStyle(fontWeight: FontWeight.bold, color: darkTextPrimary, fontSize: 24),
+        titleLarge: const TextStyle(fontWeight: FontWeight.w600, color: darkTextPrimary, fontSize: 20),
+        bodyLarge: const TextStyle(color: darkTextPrimary, fontSize: 16),
+        bodyMedium: const TextStyle(color: darkTextSecondary, fontSize: 14),
+        titleMedium: const TextStyle(color: darkTextPrimary, fontSize: 16),
+        titleSmall: const TextStyle(color: darkTextPrimary, fontSize: 14),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
+          textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ).copyWith(
+          overlayColor: WidgetStateProperty.all(Colors.white.withOpacity(0.1)),
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: darkSurfaceColor,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+          side: const BorderSide(color: Color(0xFF374151), width: 1), // Distinct border
+        ),
+        clipBehavior: Clip.antiAlias,
+      ),
+      listTileTheme: const ListTileThemeData(
+        textColor: darkTextPrimary,
+        iconColor: darkTextSecondary,
+      ),
+      dividerTheme: const DividerThemeData(
+        color: Color(0xFF374151),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: darkBackgroundColor,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Color(0xFF374151)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Color(0xFF374151)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: primaryColor, width: 2),
+        ),
+        labelStyle: const TextStyle(color: darkTextSecondary, fontWeight: FontWeight.w500),
+        prefixIconColor: darkTextSecondary,
+        suffixIconColor: darkTextSecondary,
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        elevation: 0,
+        backgroundColor: darkSurfaceColor,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: darkTextSecondary,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+      ),
+    );
+  }
 }

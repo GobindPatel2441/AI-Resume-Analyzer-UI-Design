@@ -4,6 +4,7 @@ import 'screens/splash_screen.dart';
 import 'core/app_theme.dart';
 import 'providers/resume_provider.dart';
 import 'providers/auth_provider.dart';
+import 'providers/theme_provider.dart';
 
 void main() {
   runApp(
@@ -11,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ResumeProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const AIResumeAnalyzerApp(),
     ),
@@ -22,11 +24,17 @@ class AIResumeAnalyzerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'AI Resume Analyzer',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          title: 'AI Resume Analyzer',
+          debugShowCheckedModeBanner: false,
+          themeMode: themeProvider.themeMode,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          home: const SplashScreen(),
+        );
+      },
     );
   }
 }

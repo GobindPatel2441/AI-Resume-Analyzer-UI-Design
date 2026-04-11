@@ -31,7 +31,6 @@ class ResultsScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        foregroundColor: AppTheme.textPrimaryColor,
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
@@ -42,10 +41,10 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               analysis.jobTitle,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: AppTheme.textSecondaryColor,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 32),
@@ -57,7 +56,7 @@ class ResultsScreen extends StatelessWidget {
               Colors.purple,
               Text(
                 summary,
-                style: const TextStyle(fontSize: 14, color: AppTheme.textSecondaryColor, height: 1.5),
+                style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8), height: 1.5),
               ),
             ),
             const SizedBox(height: 16),
@@ -71,7 +70,7 @@ class ResultsScreen extends StatelessWidget {
                 runSpacing: 8,
                 children: strengths.map((s) => Chip(
                   label: Text(s),
-                  backgroundColor: Colors.green.shade50,
+                  backgroundColor: Colors.green.withValues(alpha: 0.15),
                   labelStyle: const TextStyle(color: Colors.green, fontSize: 12),
                   side: BorderSide.none,
                 )).toList(),
@@ -88,7 +87,7 @@ class ResultsScreen extends StatelessWidget {
                 runSpacing: 8,
                 children: weaknesses.map((w) => Chip(
                   label: Text(w),
-                  backgroundColor: Colors.orange.shade50,
+                  backgroundColor: Colors.orange.withValues(alpha: 0.15),
                   labelStyle: const TextStyle(color: Colors.orange, fontSize: 12),
                   side: BorderSide.none,
                 )).toList(),
@@ -112,7 +111,7 @@ class ResultsScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           s,
-                          style: const TextStyle(fontSize: 14, color: AppTheme.textSecondaryColor),
+                          style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
                         ),
                       ),
                     ],
@@ -147,10 +146,10 @@ class ResultsScreen extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppTheme.textPrimaryColor,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ),

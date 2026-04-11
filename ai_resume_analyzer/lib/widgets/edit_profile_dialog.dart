@@ -92,12 +92,11 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: AppTheme.textPrimaryColor,
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppTheme.textSecondaryColor),
+                      icon: const Icon(Icons.close),
                       onPressed: () => Navigator.pop(context),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
@@ -108,14 +107,12 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                 _buildLabel('Full Name'),
                 TextFormField(
                   controller: _nameController,
-                  decoration: _inputDecoration(),
                   validator: (val) => val == null || val.isEmpty ? 'Required' : null,
                 ),
                 const SizedBox(height: 16),
                 _buildLabel('Email'),
                 TextFormField(
                   controller: _emailController,
-                  decoration: _inputDecoration(),
                   keyboardType: TextInputType.emailAddress,
                   validator: (val) {
                     if (val == null || val.isEmpty) return 'Required';
@@ -127,14 +124,12 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                 _buildLabel('Phone'),
                 TextFormField(
                   controller: _phoneController,
-                  decoration: _inputDecoration(),
                   keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(height: 16),
                 _buildLabel('Location'),
                 TextFormField(
                   controller: _locationController,
-                  decoration: _inputDecoration(),
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
@@ -179,8 +174,8 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         text,
-        style: const TextStyle(
-          color: AppTheme.textSecondaryColor,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
           fontWeight: FontWeight.w500,
           fontSize: 14,
         ),
@@ -188,21 +183,4 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
     );
   }
 
-  InputDecoration _inputDecoration() {
-    return InputDecoration(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Color(0xFF8B80F9)),
-      ),
-    );
-  }
 }

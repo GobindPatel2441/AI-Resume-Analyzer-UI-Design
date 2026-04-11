@@ -64,7 +64,7 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
                 Text(
                   'Hello, $name! 👋',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppTheme.textSecondaryColor,
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                 ),
                 const SizedBox(height: 8),
@@ -72,7 +72,7 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
                   'What role are you\ntargeting?',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: AppTheme.textPrimaryColor,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                 ),
                 const SizedBox(height: 24),
@@ -105,7 +105,7 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
                       selectedColor: AppTheme.primaryColor.withValues(alpha: 0.15),
                       checkmarkColor: AppTheme.primaryColor,
                       labelStyle: TextStyle(
-                        color: isSelected ? AppTheme.primaryColor : AppTheme.textSecondaryColor,
+                        color: isSelected ? AppTheme.primaryColor : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
                         fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                       ),
                     );
