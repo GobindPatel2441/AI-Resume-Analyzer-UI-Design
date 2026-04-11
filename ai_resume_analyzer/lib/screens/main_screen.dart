@@ -27,7 +27,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _tabs,
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [

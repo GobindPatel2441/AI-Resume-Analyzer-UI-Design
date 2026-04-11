@@ -65,9 +65,30 @@ class ResumeAnalysis {
     );
   }
 
+  /// From local SharedPreferences cache
+  factory ResumeAnalysis.fromMap(Map<String, dynamic> map) {
+    return ResumeAnalysis(
+      id: map['id']?.toString(),
+      resumeName: map['resume_name']?.toString() ?? 'Untitled',
+      extractedText: map['extracted_text']?.toString() ?? '',
+      jobTitle: map['job_title']?.toString() ?? '',
+      score: _parseInt(map['score']),
+      matchPercentage: _parseDouble(map['match_percentage']),
+      summary: map['summary']?.toString() ?? '',
+      strengths: _parseList(map['strengths']),
+      weaknesses: _parseList(map['weaknesses']),
+      suggestions: _parseList(map['suggestions']),
+      analysisDate: map['analysis_date'] != null
+          ? DateTime.tryParse(map['analysis_date'].toString()) ?? DateTime.now()
+          : DateTime.now(),
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'resume_name': resumeName,
+      'extracted_text': extractedText,
       'job_title': jobTitle,
       'score': score,
       'match_percentage': matchPercentage,
