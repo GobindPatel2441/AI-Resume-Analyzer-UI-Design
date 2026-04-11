@@ -152,20 +152,25 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Don't have an account?",
-                    style: TextStyle(color: AppTheme.textSecondaryColor),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const SignupScreen()),
+                  const Flexible(
+                    child: Text(
+                      "Don't have an account?",
+                      style: TextStyle(color: AppTheme.textSecondaryColor),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: AppTheme.primaryColor,
-                        fontWeight: FontWeight.bold,
+                  ),
+                  Flexible(
+                    child: TextButton(
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const SignupScreen()),
+                      ),
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: AppTheme.primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

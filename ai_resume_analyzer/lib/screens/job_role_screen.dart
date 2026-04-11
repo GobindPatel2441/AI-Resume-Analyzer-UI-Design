@@ -54,74 +54,76 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 24),
-              Text(
-                'Hello, $name! 👋',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: AppTheme.textSecondaryColor,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'What role are you\ntargeting?',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.textPrimaryColor,
-                    ),
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                controller: _roleController,
-                decoration: const InputDecoration(
-                  labelText: 'e.g. Senior Flutter Developer',
-                  prefixIcon: Icon(Icons.search),
-                  helperText: 'Or pick from popular roles below',
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 24),
+                Text(
+                  'Hello, $name! 👋',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: AppTheme.textSecondaryColor,
+                      ),
                 ),
-                textInputAction: TextInputAction.done,
-                onSubmitted: (_) => _continue(),
-                onChanged: (_) => setState(() => _selectedChip = null),
-              ),
-              const SizedBox(height: 20),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: AppConstants.popularJobRoles.map((role) {
-                  final isSelected = _selectedChip == role;
-                  return FilterChip(
-                    label: Text(role),
-                    selected: isSelected,
-                    onSelected: (val) {
-                      setState(() {
-                        _selectedChip = val ? role : null;
-                        if (val) _roleController.clear();
-                      });
-                    },
-                    selectedColor: AppTheme.primaryColor.withValues(alpha: 0.15),
-                    checkmarkColor: AppTheme.primaryColor,
-                    labelStyle: TextStyle(
-                      color: isSelected ? AppTheme.primaryColor : AppTheme.textSecondaryColor,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                    ),
-                  );
-                }).toList(),
-              ),
-              const Spacer(),
-              ElevatedButton(
-                onPressed: _continue,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 56),
+                const SizedBox(height: 8),
+                Text(
+                  'What role are you\ntargeting?',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.textPrimaryColor,
+                      ),
                 ),
-                child: const Text(
-                  'Continue to Dashboard',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                const SizedBox(height: 24),
+                TextField(
+                  controller: _roleController,
+                  decoration: const InputDecoration(
+                    labelText: 'e.g. Senior Flutter Developer',
+                    prefixIcon: Icon(Icons.search),
+                    helperText: 'Or pick from popular roles below',
+                  ),
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) => _continue(),
+                  onChanged: (_) => setState(() => _selectedChip = null),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: AppConstants.popularJobRoles.map((role) {
+                    final isSelected = _selectedChip == role;
+                    return FilterChip(
+                      label: Text(role),
+                      selected: isSelected,
+                      onSelected: (val) {
+                        setState(() {
+                          _selectedChip = val ? role : null;
+                          if (val) _roleController.clear();
+                        });
+                      },
+                      selectedColor: AppTheme.primaryColor.withValues(alpha: 0.15),
+                      checkmarkColor: AppTheme.primaryColor,
+                      labelStyle: TextStyle(
+                        color: isSelected ? AppTheme.primaryColor : AppTheme.textSecondaryColor,
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 48),
+                ElevatedButton(
+                  onPressed: _continue,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 56),
+                  ),
+                  child: const Text(
+                    'Continue to Dashboard',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

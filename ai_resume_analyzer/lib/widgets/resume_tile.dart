@@ -63,6 +63,8 @@ class ResumeTile extends StatelessWidget {
               subtitle,
               style: const TextStyle(
                   color: AppTheme.textSecondaryColor, fontSize: 13),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             if (dateStr.isNotEmpty)
               Text(

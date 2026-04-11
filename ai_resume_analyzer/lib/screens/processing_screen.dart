@@ -99,6 +99,8 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
                   fontSize: 14,
                 ),
                 textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 48),
               ClipRRect(

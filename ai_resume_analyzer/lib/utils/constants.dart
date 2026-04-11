@@ -1,7 +1,7 @@
 class AppConstants {
   // Backend API base URL
   // static const String baseUrl = 'http://localhost:5000'; // For local web testing
-  static const String baseUrl = 'http://localhost:5000'; // For live session
+  static const String baseUrl = 'http://192.168.29.89:5000'; // For live session
 
   // Endpoints
   static const String signupUrl = '$baseUrl/auth/signup';

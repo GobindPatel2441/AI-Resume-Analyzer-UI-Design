@@ -45,8 +45,10 @@ app.use('/analyze-resume', resumeRoutes);
 // Disabled: all requests now go through /analyze-resume with JWT
 
 // ── Start ───────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🚀 Backend server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n🚀 Backend server running on http://0.0.0.0:${PORT}`);
+  console.log(`ℹ️  Access locally via http://localhost:${PORT}`);
+  console.log(`ℹ️  Access via mobile/remote: http://192.168.29.89:${PORT}\n`);
   console.log(`   POST /auth/signup       — Create account`);
   console.log(`   POST /auth/login        — Get JWT token`);
   console.log(`   POST /analyze-resume    — Analyze resume (JWT required)`);

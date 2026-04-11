@@ -57,7 +57,7 @@
       "passwordHash": "$2b$10$VhaeMoY.qMFGL3W42/vRSeKOVl951mA8Fr7cc3Qmcbu0us9TkLZTm",
       "_id": "1775911394916",
       "createdAt": "2026-04-11T12:43:14.917Z",
-      "totalAnalyses": 2
+      "totalAnalyses": 3
     }
   ],
   "histories": [
@@ -159,6 +159,33 @@
       ],
       "_id": "1775912377335",
       "createdAt": "2026-04-11T12:59:37.335Z"
+    },
+    {
+      "userId": "1775911394916",
+      "resumeName": "Resume - LLM Research Intern.pdf",
+      "jobTitle": "Data Scientist",
+      "score": 35,
+      "matchPercentage": 35,
+      "summary": "The candidate demonstrates strong potential and hands-on experience in AI/ML application development, particularly with LLM-based systems and prompt engineering. While skilled in building AI-powered solutions and understanding NLP fundamentals, the resume is currently more aligned with an AI/ML Engineer or Developer role rather than a traditional Data Scientist position.",
+      "strengths": [
+        "Proficiency in Python and practical experience in building AI/ML applications.",
+        "Strong understanding of LLMs, prompt engineering, and AI output optimization.",
+        "Demonstrated leadership and problem-solving skills through hackathon successes.",
+        "Ability to evaluate and improve AI outputs, showing a focus on performance."
+      ],
+      "weaknesses": [
+        "Limited explicit experience or skills in core data science areas like statistical analysis, advanced SQL, data visualization, or specific predictive modeling techniques.",
+        "Resume heavily emphasizes AI application development rather than data analysis, statistical inference, or traditional machine learning model building from a data science perspective.",
+        "Lack of direct mentions of data science specific tools and libraries such as Pandas, NumPy, Scikit-learn for comprehensive data analysis and modeling."
+      ],
+      "suggestions": [
+        "Tailor the professional summary and skill section to explicitly highlight data analysis, statistical modeling, and data manipulation skills relevant to a Data Scientist role.",
+        "Seek out projects or courses that specifically involve statistical analysis, advanced SQL querying, data visualization (e.g., Matplotlib, Seaborn), and A/B testing.",
+        "Gain more experience and explicitly list relevant Python data science libraries (Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn) in your skills.",
+        "For projects, emphasize the data collection, cleaning, exploratory data analysis (EDA), feature engineering, model selection, and evaluation metrics from a data science viewpoint."
+      ],
+      "_id": "1775935484233",
+      "createdAt": "2026-04-11T19:24:44.234Z"
     }
   ]
 }
