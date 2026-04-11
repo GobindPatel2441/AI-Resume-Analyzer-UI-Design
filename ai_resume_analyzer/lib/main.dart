@@ -32,7 +32,7 @@ class AIResumeAnalyzerApp extends StatelessWidget {
           themeMode: themeProvider.themeMode,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeAnimationDuration: const Duration(milliseconds: 150),
+          themeAnimationDuration: const Duration(microseconds: 200),
           themeAnimationCurve: Curves.linear,
           home: const SplashScreen(),
         );

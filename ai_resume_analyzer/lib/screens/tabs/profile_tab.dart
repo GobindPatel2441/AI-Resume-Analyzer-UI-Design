@@ -190,7 +190,7 @@ class ProfileTab extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 150),
+                    duration: const Duration(microseconds: 200),
                     transitionBuilder: (child, anim) => RotationTransition(
                       turns: anim,
                       child: ScaleTransition(scale: anim, child: child),
