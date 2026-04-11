@@ -182,16 +182,27 @@ class ProfileTab extends StatelessWidget {
             const SizedBox(height: 12),
             Card(
               child: SwitchListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 secondary: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : Colors.grey.shade100,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.dark_mode_outlined),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    transitionBuilder: (child, anim) => RotationTransition(
+                      turns: anim,
+                      child: ScaleTransition(scale: anim, child: child),
+                    ),
+                    child: Icon(
+                      themeProvider.themeMode == ThemeMode.dark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                      key: ValueKey(themeProvider.themeMode),
+                      color: themeProvider.themeMode == ThemeMode.dark ? AppTheme.primaryColor : Colors.grey.shade600,
+                    ),
+                  ),
                 ),
-                title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w500)),
+                title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w600)),
                 value: themeProvider.themeMode == ThemeMode.dark,
                 onChanged: (bool value) {
                   themeProvider.toggleTheme(value);
