@@ -117,4 +117,15 @@ class ResumeProvider with ChangeNotifier {
       rethrow;
     }
   }
+  Future<bool> deleteAnalysis(String id) async {
+    final success = await HistoryService.deleteHistory(id);
+    if (success) {
+      _history.removeWhere((item) => item.id == id);
+      if (_currentAnalysis?.id == id) {
+        _currentAnalysis = null;
+      }
+      notifyListeners();
+    }
+    return success;
+  }
 }

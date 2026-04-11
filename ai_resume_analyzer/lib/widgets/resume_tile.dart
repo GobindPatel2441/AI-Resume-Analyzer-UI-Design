@@ -7,6 +7,7 @@ class ResumeTile extends StatelessWidget {
   final double score;
   final VoidCallback onTap;
   final DateTime? date;
+  final VoidCallback? onDelete;
 
   const ResumeTile({
     super.key,
@@ -15,6 +16,7 @@ class ResumeTile extends StatelessWidget {
     required this.score,
     required this.onTap,
     this.date,
+    this.onDelete,
   });
 
   @override
@@ -39,16 +41,28 @@ class ResumeTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         onTap: onTap,
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: AppTheme.primaryColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.picture_as_pdf_outlined,
-            color: AppTheme.primaryColor,
-          ),
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (onDelete != null)
+              IconButton(
+                icon: const Icon(Icons.delete_outline, color: Colors.red),
+                onPressed: onDelete,
+                constraints: const BoxConstraints(),
+                padding: const EdgeInsets.only(right: 8),
+              ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppTheme.primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.picture_as_pdf_outlined,
+                color: AppTheme.primaryColor,
+              ),
+            ),
+          ],
         ),
         title: Text(
           title,

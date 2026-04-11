@@ -78,6 +78,33 @@ class HistoryTab extends StatelessWidget {
                               subtitle: item.jobTitle,
                               score: item.score.toDouble(),
                               date: item.analysisDate,
+                              onDelete: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    title: const Text('Delete Analysis?'),
+                                    content: const Text('Are you sure you want to permanently delete this resume analysis?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(ctx),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(ctx);
+                                          if (item.id != null) {
+                                            provider.deleteAnalysis(item.id!);
+                                          }
+                                        },
+                                        child: const Text(
+                                          'Delete',
+                                          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                               onTap: () {
                                 provider.setCurrentAnalysis(item);
                                 Navigator.push(

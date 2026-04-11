@@ -64,6 +64,16 @@ const MockDb = {
     db.histories.push(newHistory);
     saveDb(db);
     return newHistory;
+  },
+  deleteHistory: (historyId, userId) => {
+    const db = loadDb();
+    const initialLength = db.histories.length;
+    db.histories = db.histories.filter(h => !(h._id === historyId && h.userId === userId));
+    if (db.histories.length < initialLength) {
+      saveDb(db);
+      return true;
+    }
+    return false;
   }
 };
 

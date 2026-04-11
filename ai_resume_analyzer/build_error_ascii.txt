@@ -1,0 +1,75 @@
+Resolving dependencies...
+Downloading packages...
+  file_picker 10.3.10 (11.0.2 available)
+  meta 1.17.0 (1.18.2 available)
+  path_provider_android 2.2.23 (2.3.1 available)
+  syncfusion_flutter_core 33.1.46 (33.1.47 available)
+  syncfusion_flutter_pdf 33.1.46 (33.1.47 available)
+  test_api 0.7.10 (0.7.11 available)
+  vector_math 2.2.0 (2.3.0 available)
+  win32 5.15.0 (6.0.0 available)
+Got dependencies!
+8 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running Gradle task 'assembleDebug'...                          
+flutter : lib/services/history_s
+ervice.dart:8:22: Error: Can't 
+find '}' to match '{'.
+At line:1 char:1
++ flutter build apk --debug > 
+build_error.txt 2>&1 ; cat 
+build_error.tx ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : N 
+   otSpecified: (lib/services/  
+  hi...' to match '{'.:String   
+ ) [], RemoteException
+    + FullyQualifiedErrorId : N 
+   ativeCommandError
+ 
+class HistoryService {
+                     ^
+lib/providers/resume_provider.da
+rt:121:42: Error: Member not 
+found: 
+'HistoryService.deleteHistory'.
+    final success = await Histor
+yService.deleteHistory(id);
+                                
+         ^^^^^^^^^^^^^
+lib/services/history_service.dar
+t:30:3: Error: Can't have 
+modifier 'static' here.
+Try removing 'static'.
+  static Future<bool> 
+deleteHistory(String id) async {
+  ^^^^^^
+Target kernel_snapshot_program 
+failed: Exception
+
+
+FAILURE: Build failed with an 
+exception.
+
+* What went wrong:
+Execution failed for task 
+':app:compileFlutterBuildDebug'.
+> Process 'command 'C:\src\flutt
+er\bin\flutter.bat'' finished 
+with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option 
+to get the stack trace.
+> Run with --info or --debug 
+option to get more log output.
+> Run with --scan to get full 
+insights.
+> Get more help at 
+https://help.gradle.org.
+
+BUILD FAILED in 24s
+Running Gradle task 'assembleDebug'...                             25.2s
+Gradle task assembleDebug 
+failed with exit code 1

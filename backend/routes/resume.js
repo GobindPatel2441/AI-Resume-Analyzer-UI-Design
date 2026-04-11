@@ -130,4 +130,29 @@ router.get('/profile', authMiddleware, async (req, res) => {
   }
 });
 
+// DELETE /analyze-resume/history/:id (protected)
+router.delete('/history/:id', authMiddleware, async (req, res) => {
+  try {
+    const isDbConnected = global.isDbConnected;
+    const historyId = req.params.id;
+    let deleted = false;
+
+    if (isDbConnected) {
+      const result = await ResumeHistory.findOneAndDelete({ _id: historyId, userId: req.user.id });
+      if (result) deleted = true;
+    } else {
+      deleted = MockDb.deleteHistory(historyId, req.user.id);
+    }
+
+    if (deleted) {
+      res.json({ message: 'History record deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'History record not found or unauthorized' });
+    }
+  } catch (err) {
+    console.error('Delete history error:', err.message);
+    res.status(500).json({ error: 'Failed to delete history.' });
+  }
+});
+
 module.exports = router;

@@ -1,4 +1,5 @@
 class ResumeAnalysis {
+  final String? id;
   final String resumeName;
   final String extractedText;
   final String jobTitle;
@@ -11,6 +12,7 @@ class ResumeAnalysis {
   final DateTime analysisDate;
 
   ResumeAnalysis({
+    this.id,
     required this.resumeName,
     required this.extractedText,
     required this.jobTitle,
@@ -30,6 +32,7 @@ class ResumeAnalysis {
     String resumeName,
   ) {
     return ResumeAnalysis(
+      id: json['historyId']?.toString() ?? json['_id']?.toString(),
       resumeName: resumeName,
       extractedText: '',
       jobTitle: jobTitle,
@@ -46,6 +49,7 @@ class ResumeAnalysis {
   /// From backend `/analyze-resume/history` response
   factory ResumeAnalysis.fromHistoryJson(Map<String, dynamic> json) {
     return ResumeAnalysis(
+      id: json['_id']?.toString(),
       resumeName: json['resumeName']?.toString() ?? 'Untitled',
       extractedText: '',
       jobTitle: json['jobTitle']?.toString() ?? '',
@@ -76,6 +80,7 @@ class ResumeAnalysis {
   }
 
   ResumeAnalysis copyWith({
+    String? id,
     String? resumeName,
     String? extractedText,
     String? jobTitle,
@@ -88,6 +93,7 @@ class ResumeAnalysis {
     DateTime? analysisDate,
   }) {
     return ResumeAnalysis(
+      id: id ?? this.id,
       resumeName: resumeName ?? this.resumeName,
       extractedText: extractedText ?? this.extractedText,
       jobTitle: jobTitle ?? this.jobTitle,

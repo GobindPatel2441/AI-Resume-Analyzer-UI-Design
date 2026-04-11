@@ -113,28 +113,6 @@
     },
     {
       "userId": "1775911394916",
-      "resumeName": "Premium PSD _ Minimalist resume portfolio or cv template.pdf",
-      "jobTitle": "Frontend Developer",
-      "score": 0,
-      "matchPercentage": 0,
-      "summary": "The provided resume text is entirely empty, preventing any meaningful analysis of the candidate's qualifications for a Frontend Developer role. No skills, experience, or projects could be evaluated.",
-      "strengths": [
-        "N/A - No resume content provided for analysis."
-      ],
-      "weaknesses": [
-        "Complete absence of content, making assessment impossible.",
-        "No demonstrable skills or experience for the Frontend Developer role."
-      ],
-      "suggestions": [
-        "Populate the resume with relevant work experience, projects, and achievements.",
-        "Clearly list technical skills pertinent to frontend development (e.g., HTML, CSS, JavaScript, React, Angular, Vue.js).",
-        "Include an impactful summary or objective statement to introduce qualifications."
-      ],
-      "_id": "1775912337750",
-      "createdAt": "2026-04-11T12:58:57.751Z"
-    },
-    {
-      "userId": "1775911394916",
       "resumeName": "Resume.pdf",
       "jobTitle": "Frontend Developer",
       "score": 55,

@@ -28,4 +28,24 @@ class HistoryService {
     }
     return [];
   }
+
+  static Future<bool> deleteHistory(String id) async {
+    try {
+      final token = await AuthService.getToken();
+      if (token == null) return false;
+
+      final response = await http.delete(
+        Uri.parse('${AppConstants.historyUrl}/$id'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      ).timeout(const Duration(seconds: 15));
+
+      return response.statusCode == 200;
+    } catch (e) {
+      debugPrint('HistoryService.deleteHistory error: $e');
+      return false;
+    }
+  }
 }
