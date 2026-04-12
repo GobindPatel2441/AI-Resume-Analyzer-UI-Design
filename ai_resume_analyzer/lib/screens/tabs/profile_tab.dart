@@ -57,8 +57,9 @@ class ProfileTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(email,
-                      style: const TextStyle(
-                          color: AppTheme.textSecondaryColor, fontSize: 14)),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodySmall?.color,
+                          fontSize: 14)),
                 ],
               ),
             ),
@@ -123,7 +124,6 @@ class ProfileTab extends StatelessWidget {
               'Account',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimaryColor,
                   ),
             ),
             const SizedBox(height: 12),
@@ -217,7 +217,6 @@ class ProfileTab extends StatelessWidget {
               'General',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimaryColor,
                   ),
             ),
             const SizedBox(height: 12),

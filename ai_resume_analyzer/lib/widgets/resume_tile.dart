@@ -75,16 +75,16 @@ class ResumeTile extends StatelessWidget {
           children: [
             Text(
               subtitle,
-              style: const TextStyle(
-                  color: AppTheme.textSecondaryColor, fontSize: 13),
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 13),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             if (dateStr.isNotEmpty)
               Text(
                 dateStr,
-                style: const TextStyle(
-                    color: AppTheme.textSecondaryColor, fontSize: 11),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 11),
               ),
           ],
         ),

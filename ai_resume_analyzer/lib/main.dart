@@ -5,6 +5,7 @@ import 'core/app_theme.dart';
 import 'providers/resume_provider.dart';
 import 'providers/auth_provider.dart';
 import 'providers/theme_provider.dart';
+import 'providers/navigation_provider.dart';
 
 void main() {
   runApp(
@@ -13,6 +14,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ResumeProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => NavigationProvider()),
       ],
       child: const AIResumeAnalyzerApp(),
     ),

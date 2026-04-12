@@ -35,6 +35,7 @@ class AppTheme {
         titleLarge: const TextStyle(fontWeight: FontWeight.w600, color: textPrimaryColor, fontSize: 20),
         bodyLarge: const TextStyle(color: textPrimaryColor, fontSize: 16),
         bodyMedium: const TextStyle(color: textSecondaryColor, fontSize: 14),
+        bodySmall: const TextStyle(color: textSecondaryColor, fontSize: 12),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -95,7 +96,7 @@ class AppTheme {
     const Color darkBackgroundColor = Color(0xFF111827); // Very dark gray
     const Color darkSurfaceColor = Color(0xFF1F2937); // Slightly lighter for cards
     const Color darkTextPrimary = Colors.white;
-    const Color darkTextSecondary = Color(0xFF9CA3AF);
+    const Color darkTextSecondary = Color(0xFFD1D5DB);
     
     return ThemeData(
       useMaterial3: true,
@@ -114,6 +115,7 @@ class AppTheme {
         titleLarge: const TextStyle(fontWeight: FontWeight.w600, color: darkTextPrimary, fontSize: 20),
         bodyLarge: const TextStyle(color: darkTextPrimary, fontSize: 16),
         bodyMedium: const TextStyle(color: darkTextSecondary, fontSize: 14),
+        bodySmall: const TextStyle(color: darkTextSecondary, fontSize: 12),
         titleMedium: const TextStyle(color: darkTextPrimary, fontSize: 16),
         titleSmall: const TextStyle(color: darkTextPrimary, fontSize: 14),
       ),

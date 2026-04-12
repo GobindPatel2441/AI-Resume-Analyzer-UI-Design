@@ -27,15 +27,15 @@ class HistoryTab extends StatelessWidget {
                     'Analysis History',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: AppTheme.textPrimaryColor,
                         ),
                   ),
                 ),
                 if (history.isNotEmpty)
                   Text(
                     '${history.length} records',
-                    style: const TextStyle(
-                        color: AppTheme.textSecondaryColor, fontSize: 13),
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.bodySmall?.color,
+                        fontSize: 13),
                   ),
               ],
             ),
@@ -55,11 +55,14 @@ class HistoryTab extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.history_rounded,
-                                  size: 80, color: Colors.grey.shade300),
+                                  size: 80,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300),
                               const SizedBox(height: 16),
-                              const Text('No previous analyses found',
+                              Text('No previous analyses found',
                                   style: TextStyle(
-                                      color: AppTheme.textSecondaryColor)),
+                                      color: Theme.of(context).textTheme.bodySmall?.color)),
                               const Text(
                                 'Upload a resume to get started!',
                                 style: TextStyle(

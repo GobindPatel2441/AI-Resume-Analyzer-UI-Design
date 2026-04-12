@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/app_theme.dart';
+import 'package:provider/provider.dart';
+import '../providers/navigation_provider.dart';
 
 // Placeholder tabs
 import 'tabs/home_tab.dart';
@@ -15,7 +17,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  // Navigation is now handled by NavigationProvider
 
   final List<Widget> _tabs = [
     const HomeTab(),
@@ -26,9 +28,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final navProvider = Provider.of<NavigationProvider>(context);
+    
     return Scaffold(
       body: IndexedStack(
-        index: _currentIndex,
+        index: navProvider.currentIndex,
         children: _tabs,
       ),
       bottomNavigationBar: Container(
@@ -42,8 +46,8 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) => setState(() => _currentIndex = index),
+          currentIndex: navProvider.currentIndex,
+          onTap: (index) => navProvider.setIndex(index),
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: true,
           showUnselectedLabels: true,

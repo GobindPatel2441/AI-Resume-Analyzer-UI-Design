@@ -57,7 +57,7 @@
       "passwordHash": "$2b$10$VhaeMoY.qMFGL3W42/vRSeKOVl951mA8Fr7cc3Qmcbu0us9TkLZTm",
       "_id": "1775911394916",
       "createdAt": "2026-04-11T12:43:14.917Z",
-      "totalAnalyses": 3,
+      "totalAnalyses": 4,
       "phone": "",
       "location": ""
     }
@@ -166,6 +166,32 @@
       ],
       "_id": "1775935484233",
       "createdAt": "2026-04-11T19:24:44.234Z"
+    },
+    {
+      "userId": "1775911394916",
+      "resumeName": "Resume - LLM Research Intern.pdf",
+      "jobTitle": "Machine Learning Engineer",
+      "score": 58,
+      "matchPercentage": 58,
+      "summary": "Archana demonstrates strong potential as an AI enthusiast, showcasing practical experience in LLM-based applications and excellent project leadership through hackathons. However, as an early-career candidate with an expected graduation in 2028 and no formal work experience, the resume lacks the depth in traditional ML algorithms, frameworks, and MLOps typically expected for an 'Engineer' role.",
+      "strengths": [
+        "Strong practical experience in LLM-based applications, prompt engineering, and recommendation systems through projects.",
+        "Demonstrates excellent leadership, teamwork, and problem-solving skills through multiple hackathon successes.",
+        "Proactive in learning foundational AI/ML and programming concepts, as evidenced by relevant certifications."
+      ],
+      "weaknesses": [
+        "Very early career stage with no formal work experience and B.Tech degree expected in 2028, which is a significant gap for an 'Engineer' role.",
+        "Limited depth demonstrated in core machine learning algorithms, advanced frameworks (e.g., TensorFlow, PyTorch), and MLOps/deployment practices."
+      ],
+      "suggestions": [
+        "Actively seek machine learning engineering internships or research assistant positions to gain formal industry experience.",
+        "Deepen technical skills in core ML algorithms, data structures, and advanced ML frameworks like TensorFlow or PyTorch, showcasing this in projects.",
+        "Expand project descriptions to include specific methodologies for data preprocessing, feature engineering, model evaluation metrics, and potential deployment strategies.",
+        "Gain exposure to cloud platforms (AWS, GCP, Azure) and MLOps tools to demonstrate understanding of production-level AI pipelines.",
+        "Quantify project achievements and impacts with metrics where possible (e.g., 'improved accuracy by X%', 'reduced processing time by Y%')."
+      ],
+      "_id": "1775974765830",
+      "createdAt": "2026-04-12T06:19:25.831Z"
     }
   ]
 }

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../core/app_theme.dart';
 import '../../providers/resume_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/navigation_provider.dart';
 import '../../widgets/resume_tile.dart';
 import '../../widgets/shimmer_loading.dart';
 import '../results_screen.dart';
@@ -39,7 +40,6 @@ class HomeTab extends StatelessWidget {
                             'Dashboard',
                             style: Theme.of(context).textTheme.displayLarge?.copyWith(
                                   fontSize: 28,
-                                  color: AppTheme.textPrimaryColor,
                                 ),
                           ),
                           const SizedBox(height: 4),
@@ -55,7 +55,11 @@ class HomeTab extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
+                        border: Border.all(
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white24
+                                : Colors.white,
+                            width: 2),
                         boxShadow: [
                           BoxShadow(
                             color: AppTheme.primaryColor.withOpacity(0.2),
@@ -64,17 +68,21 @@ class HomeTab extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: CircleAvatar(
-                        radius: 24,
-                        backgroundColor: AppTheme.primaryColor,
-                        child: Text(
-                          auth.userName?.isNotEmpty == true
-                              ? auth.userName![0].toUpperCase()
-                              : 'U',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                      child: InkWell(
+                        onTap: () => Provider.of<NavigationProvider>(context, listen: false).setIndex(3),
+                        borderRadius: BorderRadius.circular(24),
+                        child: CircleAvatar(
+                          radius: 24,
+                          backgroundColor: AppTheme.primaryColor,
+                          child: Text(
+                            auth.userName?.isNotEmpty == true
+                                ? auth.userName![0].toUpperCase()
+                                : 'U',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
                         ),
                       ),
                     ),
@@ -189,7 +197,7 @@ class HomeTab extends StatelessWidget {
                     ),
                     if (history.length > 5)
                       TextButton(
-                        onPressed: () {}, // Could navigate to full history tab
+                        onPressed: () => Provider.of<NavigationProvider>(context, listen: false).setIndex(2),
                         child: const Text('View All'),
                       ),
                   ],
@@ -211,11 +219,16 @@ class HomeTab extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade800
+                                : Colors.grey.shade100,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(Icons.analytics_outlined,
-                              size: 64, color: Colors.grey.shade300),
+                              size: 64,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300),
                         ),
                         const SizedBox(height: 24),
                         const Text(
@@ -224,7 +237,7 @@ class HomeTab extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         TextButton(
-                          onPressed: () {}, // Action to go to upload
+                          onPressed: () => Provider.of<NavigationProvider>(context, listen: false).setIndex(1),
                           child: const Text('Start your first analysis'),
                         ),
                       ],
@@ -287,8 +300,9 @@ class _StatCard extends StatelessWidget {
                   fontSize: 28, fontWeight: FontWeight.bold, color: color),
             ),
             Text(label,
-                style: const TextStyle(
-                    color: AppTheme.textSecondaryColor, fontSize: 13)),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                    fontSize: 13)),
           ],
         ),
       ),

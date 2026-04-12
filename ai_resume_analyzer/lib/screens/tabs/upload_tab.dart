@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -131,26 +130,6 @@ class _UploadTabState extends State<UploadTab> {
               ),
             ),
             const SizedBox(height: 16),
-            if (selectedFile == null)
-              Center(
-                child: TextButton.icon(
-                  onPressed: () {
-                    final mockFile = PlatformFile(
-                      name: 'Demo_Resume.pdf',
-                      size: 20,
-                      bytes: Uint8List.fromList([
-                        0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x34, 0x0a, // %PDF-1.4
-                        0x25, 0xe2, 0xe3, 0xcf, 0xd3, 0x0a,                   // binary marker
-                      ]),
-                    );
-                    provider.selectFile(mockFile);
-                  },
-                  icon: const Icon(Icons.auto_awesome_rounded, size: 20),
-                  label: const Text('Try Demo Resume', style: TextStyle(fontWeight: FontWeight.w600)),
-                  style: TextButton.styleFrom(foregroundColor: AppTheme.primaryColor),
-                ),
-              ),
-            const SizedBox(height: 8),
             CustomButton(
               text: 'Analyze Resume',
               onPressed: selectedFile != null ? _onAnalyze : null,
