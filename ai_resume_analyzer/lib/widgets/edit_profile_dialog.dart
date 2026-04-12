@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/app_theme.dart';
 import '../providers/auth_provider.dart';
+import '../utils/constants.dart';
 
 class EditProfileDialog extends StatefulWidget {
   const EditProfileDialog({super.key});
@@ -16,7 +17,16 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
   late TextEditingController _locationController;
+  String? _selectedRole;
+  String? _selectedExperience;
   bool _isLoading = false;
+
+  final List<String> _experiences = [
+    'Entry Level (0-2 years)',
+    'Mid Level (3-5 years)',
+    'Senior (6-10 years)',
+    'Expert (10+ years)',
+  ];
 
   @override
   void initState() {
@@ -26,6 +36,8 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
     _emailController = TextEditingController(text: auth.userEmail ?? '');
     _phoneController = TextEditingController(text: auth.userPhone ?? '');
     _locationController = TextEditingController(text: auth.userLocation ?? '');
+    _selectedRole = auth.targetRole;
+    _selectedExperience = auth.experienceLevel;
   }
 
   @override
@@ -48,6 +60,8 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
       _emailController.text.trim(),
       _phoneController.text.trim(),
       _locationController.text.trim(),
+      targetRole: _selectedRole,
+      experienceLevel: _selectedExperience,
     );
 
     if (!mounted) return;
@@ -104,10 +118,15 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                   ],
                 ),
                 const SizedBox(height: 24),
+                
+                // Personal Info Section
+                _buildSectionHeader('Personal Information'),
+                const SizedBox(height: 12),
                 _buildLabel('Full Name'),
                 TextFormField(
                   controller: _nameController,
                   validator: (val) => val == null || val.isEmpty ? 'Required' : null,
+                  decoration: const InputDecoration(hintText: 'Your name'),
                 ),
                 const SizedBox(height: 16),
                 _buildLabel('Email'),
@@ -120,18 +139,33 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
-                _buildLabel('Phone'),
-                TextFormField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                ),
-                const SizedBox(height: 16),
-                _buildLabel('Location'),
-                TextFormField(
-                  controller: _locationController,
-                ),
+                
                 const SizedBox(height: 24),
+                
+                // Career Info Section
+                _buildSectionHeader('Career Preferences'),
+                const SizedBox(height: 12),
+                _buildLabel('Target Role'),
+                DropdownButtonFormField<String>(
+                  value: AppConstants.popularJobRoles.contains(_selectedRole) ? _selectedRole : null,
+                  hint: const Text('Select a job role'),
+                  items: AppConstants.popularJobRoles.map((role) {
+                    return DropdownMenuItem(value: role, child: Text(role));
+                  }).toList(),
+                  onChanged: (val) => setState(() => _selectedRole = val),
+                ),
+                const SizedBox(height: 16),
+                _buildLabel('Experience Level'),
+                DropdownButtonFormField<String>(
+                  value: _experiences.contains(_selectedExperience) ? _selectedExperience : null,
+                  hint: const Text('Select experience level'),
+                  items: _experiences.map((exp) {
+                    return DropdownMenuItem(value: exp, child: Text(exp));
+                  }).toList(),
+                  onChanged: (val) => setState(() => _selectedExperience = val),
+                ),
+
+                const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
                   height: 54,
@@ -169,6 +203,18 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
     );
   }
 
+  Widget _buildSectionHeader(String text) {
+    return Text(
+      text.toUpperCase(),
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+        color: AppTheme.primaryColor,
+        letterSpacing: 1.2,
+      ),
+    );
+  }
+
   Widget _buildLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -182,5 +228,4 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
       ),
     );
   }
-
 }

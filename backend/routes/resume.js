@@ -133,7 +133,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
 
 // PUT /analyze-resume/profile (protected)
 router.put('/profile', authMiddleware, async (req, res) => {
-  const { name, email, phone, location, profilePic } = req.body;
+  const { name, email, phone, location, profilePic, targetRole, experienceLevel } = req.body;
   if (!name || !email) {
     return res.status(400).json({ error: 'Name and email are required.' });
   }
@@ -146,16 +146,16 @@ router.put('/profile', authMiddleware, async (req, res) => {
       if (existingUser) {
         return res.status(409).json({ error: 'An account with this email already exists.' });
       }
-      await User.findByIdAndUpdate(req.user.id, { name, email, phone, location, profilePic });
+      await User.findByIdAndUpdate(req.user.id, { name, email, phone, location, profilePic, targetRole, experienceLevel });
     } else {
       const existingUser = MockDb.findUserByEmail(email);
       if (existingUser && existingUser._id !== req.user.id) {
         return res.status(409).json({ error: 'An account with this email already exists.' });
       }
-      MockDb.updateUserProfile(req.user.id, { name, email, phone, location, profilePic });
+      MockDb.updateUserProfile(req.user.id, { name, email, phone, location, profilePic, targetRole, experienceLevel });
     }
 
-    res.json({ message: 'Profile updated successfully', user: { name, email, phone, location, profilePic } });
+    res.json({ message: 'Profile updated successfully', user: { name, email, phone, location, profilePic, targetRole, experienceLevel } });
   } catch (err) {
 
     console.error('Update profile error:', err.message);

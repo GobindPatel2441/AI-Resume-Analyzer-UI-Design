@@ -14,6 +14,8 @@ class AuthProvider with ChangeNotifier {
   String? _userPhone;
   String? _userLocation;
   String? _profilePicPath; 
+  String? _targetRole;
+  String? _experienceLevel;
   String? _errorMessage;
 
   bool get isLoggedIn => _isLoggedIn;
@@ -24,6 +26,8 @@ class AuthProvider with ChangeNotifier {
   String? get userPhone => _userPhone;
   String? get userLocation => _userLocation;
   String? get profilePicPath => _profilePicPath;
+  String? get targetRole => _targetRole;
+  String? get experienceLevel => _experienceLevel;
   String? get errorMessage => _errorMessage;
 
   /// Called on app startup to restore session
@@ -40,6 +44,8 @@ class AuthProvider with ChangeNotifier {
       _userId = user['id'];
       _userPhone = user['phone'];
       _userLocation = user['location'];
+      _targetRole = user['targetRole'];
+      _experienceLevel = user['experienceLevel'];
       
       // Load saved image path from SharedPreferences
       final prefs = await SharedPreferences.getInstance();
@@ -68,6 +74,8 @@ class AuthProvider with ChangeNotifier {
       _userId = user['id']?.toString();
       _userPhone = user['phone']?.toString();
       _userLocation = user['location']?.toString();
+      _targetRole = user['targetRole']?.toString();
+      _experienceLevel = user['experienceLevel']?.toString();
       
       // Attempt to load local path on explicit login
       final prefs = await SharedPreferences.getInstance();
@@ -99,6 +107,8 @@ class AuthProvider with ChangeNotifier {
       _userId = user['id']?.toString();
       _userPhone = user['phone']?.toString();
       _userLocation = user['location']?.toString();
+      _targetRole = user['targetRole']?.toString();
+      _experienceLevel = user['experienceLevel']?.toString();
       notifyListeners();
       return true;
     } else {
@@ -117,6 +127,8 @@ class AuthProvider with ChangeNotifier {
     _userPhone = null;
     _userLocation = null;
     _profilePicPath = null;
+    _targetRole = null;
+    _experienceLevel = null;
     notifyListeners();
   }
 
@@ -151,13 +163,13 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> updateProfile(String name, String email, String phone, String location) async {
+  Future<bool> updateProfile(String name, String email, String phone, String location, {String? targetRole, String? experienceLevel}) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
     final result = await AuthService.updateProfile(
-        name: name, email: email, phone: phone, location: location);
+        name: name, email: email, phone: phone, location: location, targetRole: targetRole ?? _targetRole, experienceLevel: experienceLevel ?? _experienceLevel);
 
     _isLoading = false;
     if (result['success'] == true) {
@@ -166,6 +178,8 @@ class AuthProvider with ChangeNotifier {
       _userEmail = user['email']?.toString();
       _userPhone = user['phone']?.toString();
       _userLocation = user['location']?.toString();
+      _targetRole = user['targetRole']?.toString();
+      _experienceLevel = user['experienceLevel']?.toString();
       notifyListeners();
       return true;
     } else {

@@ -19,6 +19,8 @@ class AppConstants {
   static const String userPhoneKey = 'user_phone';
   static const String userLocationKey = 'user_location';
   static const String userProfilePicKey = 'user_profile_pic';
+  static const String userTargetRoleKey = 'user_target_role';
+  static const String userExperienceLevelKey = 'user_experience_level';
 
 
   // Popular job roles for quick selection

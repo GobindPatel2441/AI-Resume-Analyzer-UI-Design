@@ -63,6 +63,8 @@ class AuthService {
     required String phone,
     required String location,
     String? profilePic,
+    String? targetRole,
+    String? experienceLevel,
   }) async {
     try {
       final token = await getToken();
@@ -80,6 +82,8 @@ class AuthService {
           'phone': phone,
           'location': location,
           'profilePic': profilePic,
+          'targetRole': targetRole,
+          'experienceLevel': experienceLevel,
         }),
       ).timeout(const Duration(seconds: 15));
 
@@ -90,6 +94,12 @@ class AuthService {
         await prefs.setString(AppConstants.userEmailKey, email);
         if (profilePic != null) {
           await prefs.setString(AppConstants.userProfilePicKey, profilePic);
+        }
+        if (targetRole != null) {
+          await prefs.setString(AppConstants.userTargetRoleKey, targetRole);
+        }
+        if (experienceLevel != null) {
+          await prefs.setString(AppConstants.userExperienceLevelKey, experienceLevel);
         }
         return {'success': true, 'user': body['user']};
       } else {
@@ -163,6 +173,8 @@ class AuthService {
       'phone': prefs.getString(AppConstants.userPhoneKey),
       'location': prefs.getString(AppConstants.userLocationKey),
       'profilePic': prefs.getString(AppConstants.userProfilePicKey),
+      'targetRole': prefs.getString(AppConstants.userTargetRoleKey),
+      'experienceLevel': prefs.getString(AppConstants.userExperienceLevelKey),
     };
   }
 
@@ -176,6 +188,8 @@ class AuthService {
     await prefs.setString(AppConstants.userEmailKey, user['email'] ?? '');
     await prefs.setString(AppConstants.userPhoneKey, user['phone'] ?? '');
     await prefs.setString(AppConstants.userLocationKey, user['location'] ?? '');
+    await prefs.setString(AppConstants.userTargetRoleKey, user['targetRole'] ?? '');
+    await prefs.setString(AppConstants.userExperienceLevelKey, user['experienceLevel'] ?? '');
     
     if (user['profilePic'] != null) {
       await prefs.setString(AppConstants.userProfilePicKey, user['profilePic']);

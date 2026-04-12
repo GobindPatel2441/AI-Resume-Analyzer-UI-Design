@@ -52,12 +52,12 @@
       "totalAnalyses": 1
     },
     {
-      "name": "sai",
+      "name": "Sai",
       "email": "test@gmail.com",
       "passwordHash": "$2b$10$VhaeMoY.qMFGL3W42/vRSeKOVl951mA8Fr7cc3Qmcbu0us9TkLZTm",
       "_id": "1775911394916",
       "createdAt": "2026-04-11T12:43:14.917Z",
-      "totalAnalyses": 4,
+      "totalAnalyses": 5,
       "phone": "",
       "location": ""
     }
@@ -192,6 +192,34 @@
       ],
       "_id": "1775974765830",
       "createdAt": "2026-04-12T06:19:25.831Z"
+    },
+    {
+      "userId": "1775911394916",
+      "resumeName": "Resume - LLM Research Intern.pdf",
+      "jobTitle": "UI/UX Designer (Mid Level (3-5 years))",
+      "score": 12,
+      "matchPercentage": 12,
+      "summary": "This resume showcases a strong foundation and keen interest in AI, LLM applications, and software development, evidenced by hackathon leadership and various AI-focused projects. However, it is a significant mismatch for a 'Mid Level (3-5 years)' UI/UX Designer role, as the candidate is still a student with primary expertise in AI/ML.",
+      "strengths": [
+        "Strong analytical and problem-solving skills, particularly in AI/ML contexts.",
+        "Proven leadership and project execution skills demonstrated through hackathon successes.",
+        "Exposure to responsive design and basic UI/UX thinking in project descriptions.",
+        "Fast learner with high adaptability, useful for skill development."
+      ],
+      "weaknesses": [
+        "Severe mismatch with the 'Mid Level (3-5 years)' experience requirement, as the candidate is an undergraduate expected to graduate in 2028.",
+        "The resume is heavily focused on AI/ML/Software Development, lacking dedicated UI/UX experience and specific design tools (e.g., Figma, Sketch, Adobe XD).",
+        "Absence of a UI/UX portfolio, which is critical for design roles.",
+        "Lack of mention of core UI/UX methodologies such as user research, wireframing, prototyping, or usability testing."
+      ],
+      "suggestions": [
+        "If pursuing UI/UX, develop a dedicated portfolio showcasing projects that follow the full user-centered design process, from research to high-fidelity prototypes.",
+        "Gain practical experience through UI/UX internships, even entry-level ones, to build a foundation in industry-standard tools and methodologies.",
+        "Clearly define your career objective as either a UI/UX Designer or an AI/ML Engineer and tailor your resume to that specific path.",
+        "Enroll in specialized UI/UX design courses or bootcamps to acquire in-depth knowledge and hands-on experience with design tools and principles."
+      ],
+      "_id": "1775989155410",
+      "createdAt": "2026-04-12T10:19:15.410Z"
     }
   ]
 }

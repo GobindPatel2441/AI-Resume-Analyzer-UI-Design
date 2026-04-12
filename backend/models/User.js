@@ -40,6 +40,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    targetRole: {
+      type: String,
+      default: '',
+    },
+    experienceLevel: {
+      type: String,
+      default: '',
+    },
   },
   { timestamps: true }
 );
