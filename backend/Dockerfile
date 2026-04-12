@@ -10,8 +10,8 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install --production
 
-# Copy source code
-COPY server.js ./
+# Copy entire source code and mock DB
+COPY . .
 
 # Expose port 5000
 EXPOSE 5000
