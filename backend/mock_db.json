@@ -1,4 +1,71 @@
 {
-  "users": [],
-  "histories": []
+  "users": [
+    {
+      "name": "Gobind Patel",
+      "email": "test@gmail.com",
+      "passwordHash": "$2b$10$9TOMAKhYV5F2Pwg8Im8gB.LT6IdlBfSrS4ER7JfoUeymFLjxUp6Ii",
+      "_id": "1775993132929",
+      "createdAt": "2026-04-12T11:25:32.930Z",
+      "totalAnalyses": 4,
+      "phone": "",
+      "location": ""
+    }
+  ],
+  "histories": [
+    {
+      "userId": "1775993132929",
+      "resumeName": "Resume - LLM Research Intern.pdf",
+      "jobTitle": "Software Engineer (Entry Level (0-2 years))",
+      "score": 65,
+      "matchPercentage": 65,
+      "summary": "Archana demonstrates strong enthusiasm and practical skills in AI/ML, particularly with LLM-based applications, evidenced by a robust project portfolio and multiple hackathon achievements. Her leadership roles and proactive learning through certifications highlight her potential and initiative. However, as an expected 2028 graduate, her candidacy for a full-time entry-level role is significantly premature, and the resume lacks formal internship or professional experience typically expected.",
+      "strengths": [
+        "Strong portfolio of AI/ML and LLM-based projects showcasing practical application of skills.",
+        "Demonstrated leadership and teamwork through multiple hackathon successes, including leading teams and building prototypes.",
+        "Proactive in learning and skill development, evidenced by relevant certifications in AI, Python, and JavaScript.",
+        "Clear career objective focused on real-world AI systems and model performance improvement.",
+        "Good foundational programming skills (Python, JavaScript) and familiarity with essential development tools (Git, Jupyter)."
+      ],
+      "weaknesses": [
+        "The expected graduation date of 2028 indicates the candidate is currently a first or second-year student, making them significantly under-qualified for a full-time 'Entry Level' role.",
+        "Absence of formal internship or professional work experience, which is typically expected even for entry-level positions."
+      ],
+      "suggestions": [
+        "Clearly articulate the desired type of role (e.g., 'AI/ML Internship,' 'Software Engineering Internship') in the professional summary or objective, aligning with the 2028 graduation date.",
+        "Actively pursue and highlight any relevant internships or co-op experiences to gain formal industry exposure and bridge the gap in professional experience.",
+        "Quantify achievements and impacts in project descriptions and hackathon summaries (e.g., 'improved output relevance by X%,' 'developed a prototype used by Y testers') to better showcase contributions.",
+        "Consider adding a brief section on relevant academic coursework or key subjects currently being studied to reinforce foundational knowledge.",
+        "Elaborate on the 'Python Programming Practice & Internship Tasks' or rephrase if it was not a structured internship, to avoid ambiguity."
+      ],
+      "_id": "1775993166811",
+      "createdAt": "2026-04-12T11:26:06.811Z"
+    },
+    {
+      "userId": "1775993132929",
+      "resumeName": "Resume.pdf",
+      "jobTitle": "Software Engineer (Entry Level (0-2 years))",
+      "score": 85,
+      "matchPercentage": 85,
+      "summary": "This resume presents a highly motivated 3rd-year AI & ML student with a strong foundation in C, Python, and comprehensive full-stack web development skills. Practical experience gained through certifications and an internship demonstrates an ability to build responsive web applications and work with databases, making them a promising candidate for entry-level software engineering roles.",
+      "strengths": [
+        "Strong foundational programming skills in C and Python.",
+        "Comprehensive full-stack web development abilities (HTML, CSS, JS, PHP, MySQL, WordPress).",
+        "Practical project experience gained through certifications (e.g., Django project) and a full-stack development internship.",
+        "Proactive and self-motivated learner, as evidenced by multiple relevant certifications.",
+        "Good understanding of database programming concepts."
+      ],
+      "weaknesses": [
+        "Lack of formal professional work experience beyond project-based certifications/internships.",
+        "Limited explicit mention of personal projects or academic projects outside of structured certifications.",
+        "No explicit mention of version control systems like Git/GitHub."
+      ],
+      "suggestions": [
+        "Develop and showcase a dedicated \"Projects\" section, including links to a GitHub portfolio, to demonstrate practical application of learned skills.",
+        "Elaborate on the achievements and specific technologies used within the \"Internship\" and \"Certifications\" sections, quantifying impact where possible.",
+        "Include proficiency in version control systems, particularly Git, in the \"Skills\" section and apply it to all projects."
+      ],
+      "_id": "1775993504149",
+      "createdAt": "2026-04-12T11:31:44.149Z"
+    }
+  ]
 }

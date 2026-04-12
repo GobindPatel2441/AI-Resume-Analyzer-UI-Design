@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/app_theme.dart';
 import '../providers/resume_provider.dart';
+import '../providers/auth_provider.dart';
 import 'main_screen.dart';
 
 class JobRoleScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
     'Expert (10+ years)',
   ];
 
-  void _continue() {
+  void _continue() async {
     if (_selectedRole == null || _selectedRole!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -44,12 +45,27 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
       return;
     }
 
-    Provider.of<ResumeProvider>(context, listen: false).setTargetRole(
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final resumeProvider = Provider.of<ResumeProvider>(context, listen: false);
+
+    // Save to persistence
+    await authProvider.updateProfile(
+      authProvider.userName ?? '',
+      authProvider.userEmail ?? '',
+      authProvider.userPhone ?? '',
+      authProvider.userLocation ?? '',
+      targetRole: _selectedRole,
+      experienceLevel: _selectedExperience,
+    );
+
+    // Update resume state
+    resumeProvider.setTargetRole(
       _selectedRole!, 
       experience: _selectedExperience ?? ''
     );
-    Provider.of<ResumeProvider>(context, listen: false).loadHistory();
+    resumeProvider.loadHistory();
 
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const MainScreen()),

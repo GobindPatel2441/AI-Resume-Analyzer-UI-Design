@@ -107,8 +107,11 @@ class ResumeProvider with ChangeNotifier {
   }
 
   /// Full analysis flow
-  Future<void> analyzeResume() async {
+  Future<void> analyzeResume({String? targetRole, String? experienceLevel}) async {
     if (_selectedFile == null || _selectedFile!.bytes == null) return;
+
+    final actualRole = targetRole ?? _targetRole;
+    final actualExp = experienceLevel ?? _experienceLevel;
 
     _isProcessing = true;
     _errorMessage = null;
@@ -125,9 +128,9 @@ class ResumeProvider with ChangeNotifier {
       notifyListeners();
 
       // 3. Analyze via backend
-      final combinedRole = _experienceLevel.isNotEmpty 
-          ? '$_targetRole ($_experienceLevel)' 
-          : _targetRole;
+      final combinedRole = actualExp.isNotEmpty 
+          ? '$actualRole ($actualExp)' 
+          : actualRole;
           
       _currentAnalysis = await AnalysisService.analyzeResume(
         _extractedText!,

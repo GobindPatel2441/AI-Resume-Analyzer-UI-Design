@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../core/app_theme.dart';
 import '../providers/resume_provider.dart';
+import '../providers/auth_provider.dart';
 import 'results_screen.dart';
 
 class ProcessingScreen extends StatefulWidget {
@@ -24,10 +25,14 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
 
   void _startAnalysis() async {
     final provider = Provider.of<ResumeProvider>(context, listen: false);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
     
     try {
-      // Start real analysis
-      final analysisFuture = provider.analyzeResume();
+      // Start real analysis with goals from profile
+      final analysisFuture = provider.analyzeResume(
+        targetRole: auth.targetRole,
+        experienceLevel: auth.experienceLevel,
+      );
       
       // Update UI feedback based on some timing or we could add more granular states to provider
       await Future.delayed(const Duration(seconds: 1));
