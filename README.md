@@ -1,100 +1,111 @@
-# AI Resume Analyzer 📄🚀
+# Resume Analyser 📄🚀
 
 A premium, full-stack AI application designed to analyze resumes against target job roles, providing ATS (Applicant Tracking System) scores, professional summaries, key strengths, critical weaknesses, and actionable improvement suggestions.
 
 ---
 
 ## 🌟 Project Overview
-The **AI Resume Analyzer** is a premium, full-stack SaaS application designed to help job seekers optimize their resumes. It uses AI to bridge the gap between a candidate's resume and their target job description.
+**Resume Analyser** is a high-performance SaaS application that bridges the gap between candidates and recruiters. By leveraging AI, the app provides a clinical deep-dive into how a resume stacks up against specific industry roles, allowing users to iterate and improve their professional branding before applying.
 
-### **Key Features:**
-*   **ATS Scoring Engine**: Calculates a real-time "Applicant Tracking System" score (0-100) based on how well the resume matches the target job role.
-*   **Intelligent Feedback**: Provides a structured breakdown into **Professional Summary**, **Key Strengths**, **Critical Weaknesses**, and **Improvement Suggestions**.
-*   **Adaptive Theme Engine**: Features a global Dark/Light mode toggle with ultra-high-speed (0.2ms) synchronized animations for a premium feel.
-*   **History Tracking**: Saves previous analyses locally so users can track their resume improvements over time.
-*   **Modern UI/UX**: Built with a "Mobile-First" design philosophy using modern typography and glassmorphism elements.
+### **✨ Key Features:**
+*   **ATS Scoring Engine**: Real-time analysis providing a weighted score (0-100) based on role-specific requirements.
+*   **Deep Insight Analysis**: Classified feedback across **Professional Summary**, **Strengths**, **Weaknesses**, and **Actionable Steps**.
+*   **Persistent Career Goals**: Set your **Target Role** and **Experience Level** once; the app persists these goals across sessions and uses them for every analysis.
+*   **Ultra-Fast Theme Engine**: Experience sub-millisecond (0.2ms) synchronized theme transitions between Light and Dark modes.
+*   **Branded Experience**: Featuring custom Gemini-generated logos and a unified professional aesthetic.
+*   **Secure History**: Track your progress with a locally-synced analysis history.
 
-### **Tech Stack:**
-*   **Frontend**: Flutter (utilizing `Provider` for state management and `SharedPreferences` for persistence).
-*   **Backend**: Node.js & Express.js (handling API requests and AI logic).
-*   **Data Layer**: MongoDB (primary) with a built-in `mock_db.json` fallback for offline development.
-
----
-
-## 🚀 How to Run the Project (Developer Setup)
-
-To get the entire system running, you must start both the **Backend Server** (to handle the logic) and the **Frontend App** (to see the UI).
-
-### **Step A: Start the Backend (The Brains)**
-1.  Open a terminal and navigate to the `backend` folder:
-    ```bash
-    cd backend
-    ```
-2.  Install the required Node.js packages:
-    ```bash
-    npm install
-    ```
-3.  Start the server:
-    ```bash
-    npm start
-    ```
-    *   **Success Check**: You should see "Server running on port 5000" in your terminal.
-
-### **Step B: Setup the Frontend (The Interface)**
-1.  Open a **new** terminal window and navigate to the `ai_resume_analyzer` folder:
-    ```bash
-    cd ai_resume_analyzer
-    ```
-2.  Fetch the Flutter dependencies:
-    ```bash
-    flutter pub get
-    ```
+### **🛠 Tech Stack:**
+*   **Frontend**: Flutter (State Management via `Provider`, Persistence via `SharedPreferences`).
+*   **Backend**: Node.js & Express.js.
+*   **Data Store**: MongoDB (Primary) with a robust `mock_db.json` fallback for offline/local development.
+*   **Infrastructure**: Docker & Docker Compose support for containerized deployment.
 
 ---
 
-## 📱 How to Use the Project on a Mobile Device
+## 🔄 Project Workflow
+The user journey in **Resume Analyser** is designed for maximum efficiency and professional growth:
 
-Running a full-stack app on a physical phone requires a "Local Network Bridge" so your phone can talk to the server running on your computer.
-
-### **Step 1: Find your Computer's Local IP**
-Your phone doesn't know what "localhost" is, so you must use your computer's actual network ID.
-1.  On your computer, open a Command Prompt and type:
-    ```bash
-    ipconfig
-    ```
-2.  Look for the **IPv4 Address** (it usually looks like `192.168.X.XX`).
-
-### **Step 2: Update the App's Connection Pointer**
-1.  In VS Code, open the file: `ai_resume_analyzer/lib/utils/constants.dart`.
-2.  Update the `baseUrl` with the IP you found:
-    ```dart
-    static const String baseUrl = 'http://YOUR_IP_HERE:5000';
-    ```
-
-### **Step 3: Connect and Launch**
-1.  Connect your phone via USB with **USB Debugging** enabled.
-2.  In your terminal (inside the `ai_resume_analyzer` folder), run:
-    ```bash
-    flutter run
-    ```
-3.  Select your physical device from the list when prompted.
+1.  **Identity Management**: User authenticates via JWT-secured Login/Signup.
+2.  **Goal Setting**: The user enters their **Target Role** and **Experience Level** (e.g., "Full Stack Developer", "Mid Level"). These are stored in the user profile.
+3.  **Resume Ingestion**: User taps the upload zone to select their latest PDF resume.
+4.  **AI Orchestration**:
+    *   The backend extracts PDF text.
+    *   Metadata (Current Role/Experience) is bundled with the resume content.
+    *   AI processes the bundle against the target role's requirements.
+5.  **Diagnostic Feedback**: The app renders a clean dashboard with the ATS score and detailed breakdown cards.
+6.  **Persistence**: The analysis is saved to the user's history for long-term tracking.
 
 ---
 
-## 🧭 Navigating the App
-1.  **Welcome**: Start with Login/Signup to enable history tracking.
-2.  **Job Selection**: Choose or type a target job role.
-3.  **Upload**: Tap the upload zone to select a PDF resume.
-4.  **Results**: Review your ATS score and breakdown. Use "Strengths" and "Weaknesses" for quick insights.
-5.  **Preferences**: Go to the **Profile** tab -> **Preferences** to experience the frame-perfect 0.2ms theme transition.
+## 🚀 Developer Setup (How to Run)
 
----
+### **Option 1: Manual Startup**
 
-## 🧼 Maintenance
-To remove diagnostic logs:
+#### **Step A: The Backend**
+1.  Navigate to `/backend`.
+2.  Install dependencies: `npm install`.
+3.  Verify `.env` file exists (contains your API keys and Port config).
+4.  Start: `npm start`.
+    *   *Check: Look for "Server running on port 5000".*
+
+#### **Step B: The Frontend**
+1.  Navigate to `/ai_resume_analyzer`.
+2.  Fetch packages: `flutter pub get`.
+3.  Launch: `flutter run`.
+
+### **Option 2: Docker Setup**
+Run the entire backend ecosystem with a single command:
 ```bash
-Remove-Item -Path ai_resume_analyzer/errors.txt, ai_resume_analyzer/flutter_analyze.txt -Force
+docker-compose up --build
 ```
 
+---
+
+## 📱 Mobile Deployment (Physical Device)
+
+Testing on a real phone requires the app to communicate with your computer over your local Wi-Fi.
+
+### **1. Configure Network Bridge**
+1.  On your computer, find your Local IP (IPv4):
+    *   **Windows**: Run `ipconfig` in Command Prompt.
+    *   **Mac/Linux**: Run `ifconfig` or `ip a`.
+2.  Note the address (e.g., `192.168.1.5`).
+
+### **2. Update Connection Point**
+Open `ai_resume_analyzer/lib/utils/constants.dart` and update the `baseUrl`:
+```dart
+static const String baseUrl = 'http://YOUR_IP_ADDRESS:5000';
+```
+
+### **3. Launch & Test**
+1.  Enable **USB Debugging** on your phone.
+2.  Connect your phone to your computer.
+3.  Inside `/ai_resume_analyzer`, run:
+    ```bash
+    flutter run -d <YOUR_DEVICE_ID>
+    ```
+
+---
+
+## 📁 Project Structure
+```text
+/
+├── ai_resume_analyzer/    # Flutter Mobile Application
+│   ├── assets/            # Branded Logos & UI Assets
+│   ├── lib/
+│   │   ├── core/          # Themes & Design Tokens
+│   │   ├── providers/     # State Management (Auth, Resume, Theme)
+│   │   ├── screens/       # UI Screens (Dashboard, Profile, History)
+│   │   └── services/      # API Clients & Auth Logic
+├── backend/               # Node.js API Server
+│   ├── models/            # Database Schemas
+│   ├── routes/            # API Endpoints (Auth, Analysis, Profile)
+│   └── mock_db.json       # Local Data Persistence Fallback
+└── docker-compose.yml     # Container Orchestration
+```
+
+---
+
 ## 📄 License
-This project is for demonstration and educational purposes.
+This project is for demonstration and SaaS development purposes. All rights reserved.
