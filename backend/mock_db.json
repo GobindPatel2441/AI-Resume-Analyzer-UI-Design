@@ -6,40 +6,12 @@
       "passwordHash": "$2b$10$9TOMAKhYV5F2Pwg8Im8gB.LT6IdlBfSrS4ER7JfoUeymFLjxUp6Ii",
       "_id": "1775993132929",
       "createdAt": "2026-04-12T11:25:32.930Z",
-      "totalAnalyses": 4,
+      "totalAnalyses": 6,
       "phone": "",
       "location": ""
     }
   ],
   "histories": [
-    {
-      "userId": "1775993132929",
-      "resumeName": "Resume - LLM Research Intern.pdf",
-      "jobTitle": "Software Engineer (Entry Level (0-2 years))",
-      "score": 65,
-      "matchPercentage": 65,
-      "summary": "Archana demonstrates strong enthusiasm and practical skills in AI/ML, particularly with LLM-based applications, evidenced by a robust project portfolio and multiple hackathon achievements. Her leadership roles and proactive learning through certifications highlight her potential and initiative. However, as an expected 2028 graduate, her candidacy for a full-time entry-level role is significantly premature, and the resume lacks formal internship or professional experience typically expected.",
-      "strengths": [
-        "Strong portfolio of AI/ML and LLM-based projects showcasing practical application of skills.",
-        "Demonstrated leadership and teamwork through multiple hackathon successes, including leading teams and building prototypes.",
-        "Proactive in learning and skill development, evidenced by relevant certifications in AI, Python, and JavaScript.",
-        "Clear career objective focused on real-world AI systems and model performance improvement.",
-        "Good foundational programming skills (Python, JavaScript) and familiarity with essential development tools (Git, Jupyter)."
-      ],
-      "weaknesses": [
-        "The expected graduation date of 2028 indicates the candidate is currently a first or second-year student, making them significantly under-qualified for a full-time 'Entry Level' role.",
-        "Absence of formal internship or professional work experience, which is typically expected even for entry-level positions."
-      ],
-      "suggestions": [
-        "Clearly articulate the desired type of role (e.g., 'AI/ML Internship,' 'Software Engineering Internship') in the professional summary or objective, aligning with the 2028 graduation date.",
-        "Actively pursue and highlight any relevant internships or co-op experiences to gain formal industry exposure and bridge the gap in professional experience.",
-        "Quantify achievements and impacts in project descriptions and hackathon summaries (e.g., 'improved output relevance by X%,' 'developed a prototype used by Y testers') to better showcase contributions.",
-        "Consider adding a brief section on relevant academic coursework or key subjects currently being studied to reinforce foundational knowledge.",
-        "Elaborate on the 'Python Programming Practice & Internship Tasks' or rephrase if it was not a structured internship, to avoid ambiguity."
-      ],
-      "_id": "1775993166811",
-      "createdAt": "2026-04-12T11:26:06.811Z"
-    },
     {
       "userId": "1775993132929",
       "resumeName": "Resume.pdf",
@@ -66,6 +38,55 @@
       ],
       "_id": "1775993504149",
       "createdAt": "2026-04-12T11:31:44.149Z"
+    },
+    {
+      "userId": "1775993132929",
+      "resumeName": "Resume - LLM Research Intern.pdf",
+      "jobTitle": "Software Engineer (Entry Level (0-2 years))",
+      "score": 68,
+      "matchPercentage": 68,
+      "summary": "Archana presents as a highly motivated AI and software enthusiast with an impressive portfolio of LLM-based projects and a strong track record of success in hackathons. While her academic career is still in its early stages (expected graduation 2028), her proactive skill development and leadership qualities are commendable for an aspiring entry-level candidate.",
+      "strengths": [
+        "Extensive project experience, particularly with LLM-based applications and recommendation systems.",
+        "Proven leadership and teamwork skills demonstrated through multiple successful hackathon participations.",
+        "Solid foundational skills in Python, JavaScript, and key development tools like Git.",
+        "Proactive in acquiring certifications in relevant AI and programming domains.",
+        "Clear passion and enthusiasm for AI, evidenced by career objective and project focus."
+      ],
+      "weaknesses": [
+        "Current academic status (expected graduation 2028) makes her significantly earlier than typical 'entry-level' candidates who are usually recent graduates or in their final year.",
+        "The resume heavily emphasizes AI/ML, potentially underselling broader core software engineering skills (e.g., data structures, algorithms) often expected for a general Software Engineer role.",
+        "Lack of formal internship or work experience, which is common for her academic stage but a typical expectation for entry-level roles."
+      ],
+      "suggestions": [
+        "Actively seek internships or research assistant roles, especially those focused on AI/ML or general software development, to gain formal industry experience and bridge the gap to full-time entry-level positions.",
+        "Expand project work to explicitly showcase a deeper understanding of fundamental software engineering principles, such as data structures, algorithms, and scalable system design, using languages like Python or JavaScript.",
+        "Consider adding a 'Relevant Coursework' section if available, and further elaborate on projects to highlight the problem-solving and engineering decisions made, rather than solely focusing on AI outcomes."
+      ],
+      "_id": "1775996058721",
+      "createdAt": "2026-04-12T12:14:18.721Z"
+    },
+    {
+      "userId": "1775993132929",
+      "resumeName": "Premium PSD _ Minimalist resume portfolio or cv template.pdf",
+      "jobTitle": "Software Engineer (Entry Level (0-2 years))",
+      "score": 0,
+      "matchPercentage": 0,
+      "summary": "The provided resume is entirely blank, offering no information to evaluate against the Software Engineer (Entry Level) role requirements. Without any content, a comprehensive analysis is impossible, and no assessment of skills or experience can be made.",
+      "strengths": [
+        "No content provided for analysis."
+      ],
+      "weaknesses": [
+        "Resume is entirely blank, providing no information about education, experience, skills, or projects.",
+        "Absence of any content prevents assessment of technical abilities, relevant coursework, or potential fit for the role."
+      ],
+      "suggestions": [
+        "Populate the resume with all relevant sections including Contact Information, Summary/Objective, Education, Experience, Projects, Skills, and Awards/Achievements.",
+        "Ensure the resume clearly highlights relevant coursework, programming languages, tools, and any software development experience or projects.",
+        "Tailor the resume content to specifically address the requirements and keywords commonly found in entry-level Software Engineer job descriptions."
+      ],
+      "_id": "1775996093526",
+      "createdAt": "2026-04-12T12:14:53.526Z"
     }
   ]
 }
