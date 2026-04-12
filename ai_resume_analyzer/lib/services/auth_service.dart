@@ -62,6 +62,7 @@ class AuthService {
     required String email,
     required String phone,
     required String location,
+    String? profilePic,
   }) async {
     try {
       final token = await getToken();
@@ -78,6 +79,7 @@ class AuthService {
           'email': email,
           'phone': phone,
           'location': location,
+          'profilePic': profilePic,
         }),
       ).timeout(const Duration(seconds: 15));
 
@@ -86,6 +88,9 @@ class AuthService {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(AppConstants.userNameKey, name);
         await prefs.setString(AppConstants.userEmailKey, email);
+        if (profilePic != null) {
+          await prefs.setString(AppConstants.userProfilePicKey, profilePic);
+        }
         return {'success': true, 'user': body['user']};
       } else {
         return {'success': false, 'error': body['error'] ?? 'Profile update failed'};
@@ -135,6 +140,7 @@ class AuthService {
     await prefs.remove(AppConstants.userNameKey);
     await prefs.remove(AppConstants.userEmailKey);
     await prefs.remove(AppConstants.userIdKey);
+    await prefs.remove(AppConstants.userProfilePicKey);
   }
 
   // ── Token helpers ───────────────────────────────────────
@@ -156,6 +162,7 @@ class AuthService {
       'email': prefs.getString(AppConstants.userEmailKey),
       'phone': prefs.getString(AppConstants.userPhoneKey),
       'location': prefs.getString(AppConstants.userLocationKey),
+      'profilePic': prefs.getString(AppConstants.userProfilePicKey),
     };
   }
 
@@ -169,5 +176,9 @@ class AuthService {
     await prefs.setString(AppConstants.userEmailKey, user['email'] ?? '');
     await prefs.setString(AppConstants.userPhoneKey, user['phone'] ?? '');
     await prefs.setString(AppConstants.userLocationKey, user['location'] ?? '');
+    
+    if (user['profilePic'] != null) {
+      await prefs.setString(AppConstants.userProfilePicKey, user['profilePic']);
+    }
   }
 }

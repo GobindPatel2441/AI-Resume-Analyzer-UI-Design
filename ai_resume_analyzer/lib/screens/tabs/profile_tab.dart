@@ -1,11 +1,16 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../core/app_theme.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/resume_provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../widgets/edit_profile_dialog.dart';
 import '../../widgets/change_password_dialog.dart';
+import '../../services/image_service.dart';
+import '../../widgets/profile_avatar.dart';
 import '../login_screen.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -37,16 +42,46 @@ class ProfileTab extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundColor: AppTheme.primaryColor,
-                    child: Text(
-                      name.isNotEmpty ? name[0].toUpperCase() : 'U',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold),
-                    ),
+                  Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppTheme.primaryColor.withOpacity(0.2), width: 4),
+                        ),
+                        child: const ProfileAvatar(
+                          radius: 54,
+                          fontSize: 44,
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: GestureDetector(
+                          onTap: () => _showImageSourceSheet(context, auth),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppTheme.primaryColor,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.camera_alt_rounded,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -254,5 +289,90 @@ class ProfileTab extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showImageSourceSheet(BuildContext context, AuthProvider auth) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (sheetContext) => Container(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Profile Picture',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildSourceOption(
+                  sheetContext,
+                  icon: Icons.photo_library_rounded,
+                  label: 'Gallery',
+                  onTap: () => _pickImage(context, auth, ImageSource.gallery),
+                ),
+                _buildSourceOption(
+                  sheetContext,
+                  icon: Icons.camera_enhance_rounded,
+                  label: 'Camera',
+                  onTap: () => _pickImage(context, auth, ImageSource.camera),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSourceOption(BuildContext context, {required IconData icon, required String label, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+        onTap();
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppTheme.primaryColor.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: AppTheme.primaryColor, size: 32),
+          ),
+          const SizedBox(height: 8),
+          Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _pickImage(BuildContext context, AuthProvider auth, ImageSource source) async {
+    final File? imageFile = await ImageService.pickAndCropImage(
+      context: context,
+      source: source,
+    );
+    
+    if (imageFile != null) {
+      // INSTA-UPDATE: Save the file path locally via path_provider and update UI instantly
+      auth.updateProfilePicture(imageFile);
+      
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile picture updated successfully!'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 }

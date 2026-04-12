@@ -18,6 +18,8 @@ class AppConstants {
   static const String userIdKey = 'user_id';
   static const String userPhoneKey = 'user_phone';
   static const String userLocationKey = 'user_location';
+  static const String userProfilePicKey = 'user_profile_pic';
+
 
   // Popular job roles for quick selection
   static const List<String> popularJobRoles = [

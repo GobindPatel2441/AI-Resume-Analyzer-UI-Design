@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/constants.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AuthProvider with ChangeNotifier {
   bool _isLoggedIn = false;
@@ -9,6 +13,7 @@ class AuthProvider with ChangeNotifier {
   String? _userId;
   String? _userPhone;
   String? _userLocation;
+  String? _profilePicPath; 
   String? _errorMessage;
 
   bool get isLoggedIn => _isLoggedIn;
@@ -18,6 +23,7 @@ class AuthProvider with ChangeNotifier {
   String? get userId => _userId;
   String? get userPhone => _userPhone;
   String? get userLocation => _userLocation;
+  String? get profilePicPath => _profilePicPath;
   String? get errorMessage => _errorMessage;
 
   /// Called on app startup to restore session
@@ -34,6 +40,10 @@ class AuthProvider with ChangeNotifier {
       _userId = user['id'];
       _userPhone = user['phone'];
       _userLocation = user['location'];
+      
+      // Load saved image path from SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      _profilePicPath = prefs.getString(AppConstants.userProfilePicKey + "_local");
     } else {
       _isLoggedIn = false;
     }
@@ -58,6 +68,11 @@ class AuthProvider with ChangeNotifier {
       _userId = user['id']?.toString();
       _userPhone = user['phone']?.toString();
       _userLocation = user['location']?.toString();
+      
+      // Attempt to load local path on explicit login
+      final prefs = await SharedPreferences.getInstance();
+      _profilePicPath = prefs.getString(AppConstants.userProfilePicKey + "_local");
+      
       notifyListeners();
       return true;
     } else {
@@ -101,7 +116,34 @@ class AuthProvider with ChangeNotifier {
     _userId = null;
     _userPhone = null;
     _userLocation = null;
+    _profilePicPath = null;
     notifyListeners();
+  }
+
+  /// Updates the profile picture instantly using standard strict File logic.
+  /// Copies the file to the app directory & saves the path permanently.
+  Future<void> updateProfilePicture(File imageFile) async {
+    try {
+      // 1. Get Application Directory (path_provider)
+      final directory = await getApplicationDocumentsDirectory();
+      
+      // 2. Create a permanent path
+      final String persistentPath = '${directory.path}/profile_pic_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      
+      // 3. Copy the file
+      final File savedImage = await imageFile.copy(persistentPath);
+      
+      // 4. Store the path in SharedPreferences permanently
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(AppConstants.userProfilePicKey + "_local", savedImage.path);
+
+      // 5. Update UI instantly
+      _profilePicPath = savedImage.path;
+      notifyListeners(); 
+      
+    } catch (e) {
+      debugPrint('[DEBUG] Error saving profile picture: $e');
+    }
   }
 
   void clearError() {

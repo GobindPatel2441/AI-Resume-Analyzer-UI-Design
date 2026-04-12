@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/app_theme.dart';
@@ -6,6 +7,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/navigation_provider.dart';
 import '../../widgets/resume_tile.dart';
 import '../../widgets/shimmer_loading.dart';
+import '../../widgets/profile_avatar.dart';
 import '../results_screen.dart';
 
 class HomeTab extends StatelessWidget {
@@ -68,23 +70,15 @@ class HomeTab extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: InkWell(
-                        onTap: () => Provider.of<NavigationProvider>(context, listen: false).setIndex(3),
-                        borderRadius: BorderRadius.circular(24),
-                        child: CircleAvatar(
-                          radius: 24,
-                          backgroundColor: AppTheme.primaryColor,
-                          child: Text(
-                            auth.userName?.isNotEmpty == true
-                                ? auth.userName![0].toUpperCase()
-                                : 'U',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          ),
-                        ),
+                    child: InkWell(
+                      onTap: () => Provider.of<NavigationProvider>(context, listen: false).setIndex(3),
+                      borderRadius: BorderRadius.circular(24),
+                      child: const ProfileAvatar(
+                        radius: 24,
+                        fontSize: 18,
                       ),
+                    ),
+
                     ),
                   ],
                 ),
