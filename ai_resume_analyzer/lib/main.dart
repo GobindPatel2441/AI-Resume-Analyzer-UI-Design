@@ -29,7 +29,7 @@ class AIResumeAnalyzerApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
-          title: 'AI Resume Analyzer',
+          title: 'Resume Analyser',
           debugShowCheckedModeBanner: false,
           themeMode: themeProvider.themeMode,
           theme: AppTheme.lightTheme,

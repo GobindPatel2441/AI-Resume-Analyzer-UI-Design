@@ -8,7 +8,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     
     <application
-        android:label="ai_resume_analyzer"
+        android:label="Resume Analyser"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">
