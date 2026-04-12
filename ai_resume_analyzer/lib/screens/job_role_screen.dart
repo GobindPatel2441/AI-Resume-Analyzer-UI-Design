@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/app_theme.dart';
 import '../providers/resume_provider.dart';
-import '../providers/auth_provider.dart';
-import '../utils/constants.dart';
 import 'main_screen.dart';
 
 class JobRoleScreen extends StatefulWidget {
@@ -14,31 +12,42 @@ class JobRoleScreen extends StatefulWidget {
 }
 
 class _JobRoleScreenState extends State<JobRoleScreen> {
-  final _roleController = TextEditingController();
-  String? _selectedChip;
+  String? _selectedRole;
+  String? _selectedExperience;
 
-  @override
-  void dispose() {
-    _roleController.dispose();
-    super.dispose();
-  }
+  final List<String> _roles = [
+    'Software Engineer',
+    'Data Analyst',
+    'Product Manager',
+    'UI/UX Designer',
+    'DevOps Engineer',
+    'Marketing Manager',
+    'Sales Executive',
+    'Business Analyst',
+  ];
+
+  final List<String> _experiences = [
+    'Entry Level (0-2 years)',
+    'Mid Level (3-5 years)',
+    'Senior (6-10 years)',
+    'Expert (10+ years)',
+  ];
 
   void _continue() {
-    final role = _roleController.text.trim().isNotEmpty
-        ? _roleController.text.trim()
-        : _selectedChip;
-
-    if (role == null || role.isEmpty) {
+    if (_selectedRole == null || _selectedRole!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please select or enter a target job role'),
+          content: Text('Please select a target job role'),
           behavior: SnackBarBehavior.floating,
         ),
       );
       return;
     }
 
-    Provider.of<ResumeProvider>(context, listen: false).setTargetRole(role);
+    Provider.of<ResumeProvider>(context, listen: false).setTargetRole(
+      _selectedRole!, 
+      experience: _selectedExperience ?? ''
+    );
     Provider.of<ResumeProvider>(context, listen: false).loadHistory();
 
     Navigator.pushReplacement(
@@ -49,77 +58,169 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
-    final name = auth.userName ?? 'there';
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 24),
-                Text(
-                  'Hello, $name! 👋',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                      ),
+                // Top Briefcase Icon
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: AppTheme.primaryColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.business_center_outlined,
+                    color: AppTheme.primaryColor,
+                    size: 48,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 32),
+                
+                // Titles
                 Text(
-                  'What role are you\ntargeting?',
+                  'Tell us about your goals',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 24),
-                TextField(
-                  controller: _roleController,
-                  decoration: const InputDecoration(
-                    labelText: 'e.g. Senior Flutter Developer',
-                    prefixIcon: Icon(Icons.search),
-                    helperText: 'Or pick from popular roles below',
-                  ),
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (_) => _continue(),
-                  onChanged: (_) => setState(() => _selectedChip = null),
-                ),
-                const SizedBox(height: 20),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: AppConstants.popularJobRoles.map((role) {
-                    final isSelected = _selectedChip == role;
-                    return FilterChip(
-                      label: Text(role),
-                      selected: isSelected,
-                      onSelected: (val) {
-                        setState(() {
-                          _selectedChip = val ? role : null;
-                          if (val) _roleController.clear();
-                        });
-                      },
-                      selectedColor: AppTheme.primaryColor.withValues(alpha: 0.15),
-                      checkmarkColor: AppTheme.primaryColor,
-                      labelStyle: TextStyle(
-                        color: isSelected ? AppTheme.primaryColor : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                const SizedBox(height: 12),
+                Text(
+                  'Select your target job role to get personalized resume insights',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        height: 1.4,
                       ),
-                    );
-                  }).toList(),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 48),
-                ElevatedButton(
-                  onPressed: _continue,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 56),
+
+                // Selection Card
+                Card(
+                  elevation: 4,
+                  shadowColor: Colors.black.withOpacity(0.05),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    side: BorderSide(color: Colors.grey.withOpacity(0.1), width: 1),
                   ),
-                  child: const Text(
-                    'Continue to Dashboard',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Target Job Role
+                        Text(
+                          'Target Job Role',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        DropdownButtonFormField<String>(
+                          value: _selectedRole,
+                          hint: const Text('Select a job role'),
+                          items: _roles.map((role) {
+                            return DropdownMenuItem(
+                              value: role,
+                              child: Text(role),
+                            );
+                          }).toList(),
+                          onChanged: (value) => setState(() => _selectedRole = value),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
+                            ),
+                          ),
+                          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                        ),
+                        
+                        const SizedBox(height: 24),
+                        
+                        // Experience Level
+                        RichText(
+                          text: TextSpan(
+                            text: 'Experience Level ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '(Optional)',
+                                style: TextStyle(
+                                  color: Colors.grey.shade500,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        DropdownButtonFormField<String>(
+                          value: _selectedExperience,
+                          hint: const Text('Select experience level'),
+                          items: _experiences.map((exp) {
+                            return DropdownMenuItem(
+                              value: exp,
+                              child: Text(exp),
+                            );
+                          }).toList(),
+                          onChanged: (value) => setState(() => _selectedExperience = value),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
+                            ),
+                          ),
+                          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                        ),
+
+                        const SizedBox(height: 40),
+
+                        // Continue Button
+                        ElevatedButton(
+                          onPressed: _continue,
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 56),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

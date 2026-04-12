@@ -11,6 +11,7 @@ class ResumeProvider with ChangeNotifier {
   PlatformFile? _selectedFile;
   String? _extractedText;
   String _targetRole = '';
+  String _experienceLevel = '';
   ResumeAnalysis? _currentAnalysis;
   List<ResumeAnalysis> _history = [];
   bool _isProcessing = false;
@@ -20,6 +21,7 @@ class ResumeProvider with ChangeNotifier {
   PlatformFile? get selectedFile => _selectedFile;
   String? get extractedText => _extractedText;
   String get targetRole => _targetRole;
+  String get experienceLevel => _experienceLevel;
   ResumeAnalysis? get currentAnalysis => _currentAnalysis;
   List<ResumeAnalysis> get history => _history;
   bool get isProcessing => _isProcessing;
@@ -31,8 +33,9 @@ class ResumeProvider with ChangeNotifier {
     return _history.map((h) => h.score).reduce((a, b) => a + b) / _history.length;
   }
 
-  void setTargetRole(String role) {
+  void setTargetRole(String role, {String experience = ''}) {
     _targetRole = role;
+    _experienceLevel = experience;
     notifyListeners();
   }
 
@@ -122,16 +125,20 @@ class ResumeProvider with ChangeNotifier {
       notifyListeners();
 
       // 3. Analyze via backend
+      final combinedRole = _experienceLevel.isNotEmpty 
+          ? '$_targetRole ($_experienceLevel)' 
+          : _targetRole;
+          
       _currentAnalysis = await AnalysisService.analyzeResume(
         _extractedText!,
-        _targetRole,
+        combinedRole,
         _selectedFile!.name,
       );
 
       // 4. Update metadata
       _currentAnalysis = _currentAnalysis!.copyWith(
         resumeName: _selectedFile!.name,
-        jobTitle: _targetRole,
+        jobTitle: combinedRole,
       );
 
       // 5. Add to local history (backend also saves it)
