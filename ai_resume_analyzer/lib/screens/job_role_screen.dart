@@ -125,6 +125,7 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
                         ),
                         const SizedBox(height: 12),
                         DropdownButtonFormField<String>(
+                          isExpanded: true,
                           value: _selectedRole,
                           hint: const Text('Select a job role'),
                           items: _roles.map((role) {
@@ -176,6 +177,7 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
                         ),
                         const SizedBox(height: 12),
                         DropdownButtonFormField<String>(
+                          isExpanded: true,
                           value: _selectedExperience,
                           hint: const Text('Select experience level'),
                           items: _experiences.map((exp) {

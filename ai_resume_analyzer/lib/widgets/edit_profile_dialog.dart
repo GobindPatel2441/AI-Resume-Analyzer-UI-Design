@@ -147,6 +147,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                 const SizedBox(height: 12),
                 _buildLabel('Target Role'),
                 DropdownButtonFormField<String>(
+                  isExpanded: true,
                   value: AppConstants.popularJobRoles.contains(_selectedRole) ? _selectedRole : null,
                   hint: const Text('Select a job role'),
                   items: AppConstants.popularJobRoles.map((role) {
@@ -157,6 +158,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                 const SizedBox(height: 16),
                 _buildLabel('Experience Level'),
                 DropdownButtonFormField<String>(
+                  isExpanded: true,
                   value: _experiences.contains(_selectedExperience) ? _selectedExperience : null,
                   hint: const Text('Select experience level'),
                   items: _experiences.map((exp) {
