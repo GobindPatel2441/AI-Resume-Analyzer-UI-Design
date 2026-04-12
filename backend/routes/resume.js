@@ -134,28 +134,68 @@ router.get('/profile', authMiddleware, async (req, res) => {
 // PUT /analyze-resume/profile (protected)
 router.put('/profile', authMiddleware, async (req, res) => {
   const { name, email, phone, location, profilePic, targetRole, experienceLevel } = req.body;
-  if (!name || !email) {
-    return res.status(400).json({ error: 'Name and email are required.' });
-  }
-
   try {
     const isDbConnected = global.isDbConnected;
+    let currentUser;
+    if (isDbConnected) {
+      currentUser = await User.findById(req.user.id);
+    } else {
+      currentUser = MockDb.findUserById(req.user.id);
+    }
+
+    if (!currentUser) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    const finalName = name || currentUser.name;
+    const finalEmail = email || currentUser.email;
+
+    if (!finalName || !finalEmail) {
+      return res.status(400).json({ error: 'Name and email are required.' });
+    }
+
     // Check if new email is already taken by a different user
     if (isDbConnected) {
-      const existingUser = await User.findOne({ email, _id: { $ne: req.user.id } });
+      const existingUser = await User.findOne({ email: finalEmail, _id: { $ne: req.user.id } });
       if (existingUser) {
         return res.status(409).json({ error: 'An account with this email already exists.' });
       }
-      await User.findByIdAndUpdate(req.user.id, { name, email, phone, location, profilePic, targetRole, experienceLevel });
+      await User.findByIdAndUpdate(req.user.id, { 
+        name: finalName, 
+        email: finalEmail, 
+        phone: phone || currentUser.phone, 
+        location: location || currentUser.location, 
+        profilePic: profilePic || currentUser.profilePic, 
+        targetRole: targetRole || currentUser.targetRole, 
+        experienceLevel: experienceLevel || currentUser.experienceLevel 
+      });
     } else {
-      const existingUser = MockDb.findUserByEmail(email);
+      const existingUser = MockDb.findUserByEmail(finalEmail);
       if (existingUser && existingUser._id !== req.user.id) {
         return res.status(409).json({ error: 'An account with this email already exists.' });
       }
-      MockDb.updateUserProfile(req.user.id, { name, email, phone, location, profilePic, targetRole, experienceLevel });
+      MockDb.updateUserProfile(req.user.id, { 
+        name: finalName, 
+        email: finalEmail, 
+        phone: phone || currentUser.phone, 
+        location: location || currentUser.location, 
+        profilePic: profilePic || currentUser.profilePic, 
+        targetRole: targetRole || currentUser.targetRole, 
+        experienceLevel: experienceLevel || currentUser.experienceLevel 
+      });
     }
 
-    res.json({ message: 'Profile updated successfully', user: { name, email, phone, location, profilePic, targetRole, experienceLevel } });
+    const updatedUser = { 
+      name: finalName, 
+      email: finalEmail, 
+      phone: phone || currentUser.phone, 
+      location: location || currentUser.location, 
+      profilePic: profilePic || currentUser.profilePic, 
+      targetRole: targetRole || currentUser.targetRole, 
+      experienceLevel: experienceLevel || currentUser.experienceLevel 
+    };
+
+    res.json({ message: 'Profile updated successfully', user: updatedUser });
   } catch (err) {
 
     console.error('Update profile error:', err.message);

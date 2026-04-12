@@ -48,15 +48,26 @@ class _JobRoleScreenState extends State<JobRoleScreen> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final resumeProvider = Provider.of<ResumeProvider>(context, listen: false);
 
+    final currentName = authProvider.userName ?? '';
+    final currentEmail = authProvider.userEmail ?? '';
+
+    if (currentName.isEmpty || currentEmail.isEmpty) {
+      debugPrint('JobRoleScreen: Name or Email missing in AuthProvider. Update might fail.');
+    }
+
     // Save to persistence
-    await authProvider.updateProfile(
-      authProvider.userName ?? '',
-      authProvider.userEmail ?? '',
+    final success = await authProvider.updateProfile(
+      currentName,
+      currentEmail,
       authProvider.userPhone ?? '',
       authProvider.userLocation ?? '',
       targetRole: _selectedRole,
       experienceLevel: _selectedExperience,
     );
+
+    if (!success) {
+       debugPrint('JobRoleScreen: Profile update failed: ${authProvider.errorMessage}');
+    }
 
     // Update resume state
     resumeProvider.setTargetRole(
